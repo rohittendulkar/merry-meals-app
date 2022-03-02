@@ -82,13 +82,13 @@ export default class Register extends Component{
                                 </div>
                                 <div className="form-group">
                                     <label>Issues:</label>
-                                    <input placeholder="Address" name="address" className="form-control"
-                                    value={this.state.address} onChange={this.changeAddressHandler}/>
+                                    <input placeholder="Issues" name="issues" className="form-control"
+                                    value={this.state.issues} onChange={this.changeIssuesHandler}/>
                                 </div>
                                 <div className="form-group">
                                     <label>Upload:</label>
-                                    <input placeholder="Address" name="address" className="form-control"
-                                    value={this.state.address} onChange={this.changeAddressHandler}/>
+                                    <input placeholder="Upload File" type="file" name="file" className="form-control"
+                                    value={this.state.upload} onChange={this.addUploadHandler}/>
                                 </div>
                                 <br></br>
                                 <br></br>
