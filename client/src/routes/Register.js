@@ -86,7 +86,7 @@ export default class Register extends Component{
                                     value={this.state.address} onChange={this.changeAddressHandler}/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Issues:</label>
+                                    <label>Upload:</label>
                                     <input placeholder="Address" name="address" className="form-control"
                                     value={this.state.address} onChange={this.changeAddressHandler}/>
                                 </div>
