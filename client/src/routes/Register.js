@@ -56,7 +56,7 @@ export default class Register extends Component {
 		this.setState({ upload: event.target.value });
 	};
 
-	async registerUser(event) {
+	registerUser = async (event) => {
 		event.preventDefault();
 
 		let user = {
@@ -81,7 +81,7 @@ export default class Register extends Component {
 		const data = await response.json();
 
 		console.log(data);
-	}
+	};
 
 	render() {
 		return (
@@ -156,6 +156,16 @@ export default class Register extends Component {
 										/>
 									</div>
 									<div className="form-group">
+										<label>Address:</label>
+										<input
+											placeholder="Address"
+											name="address"
+											className="form-control"
+											value={this.state.address}
+											onChange={this.changeAddressHandler}
+										/>
+									</div>
+									<div className="form-group">
 										<label>Email:</label>
 										<input
 											placeholder="Email"
@@ -175,16 +185,6 @@ export default class Register extends Component {
 											className="form-control"
 											value={this.state.password}
 											onChange={this.changePasswordHandler}
-										/>
-									</div>
-									<div className="form-group">
-										<label>Address:</label>
-										<input
-											placeholder="Address"
-											name="address"
-											className="form-control"
-											value={this.state.address}
-											onChange={this.changeAddressHandler}
 										/>
 									</div>
 									<div className="form-group">
@@ -210,9 +210,7 @@ export default class Register extends Component {
 									</div>
 									<br></br>
 									<br></br>
-									<button className="btn btn-success" type="submit">
-										Register
-									</button>
+									<input type="submit" value="Register" />
 								</form>
 							</div>
 						</div>
