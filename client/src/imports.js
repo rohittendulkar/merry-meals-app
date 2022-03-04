@@ -1,11 +1,3 @@
-import Register from "./routes/Register";
-import Login from "./routes/LogIn";
-import Home from "./routes/Home";
-
-export function Imports() {
-  <>
-    <Register />
-    <Login />
-    <Home />
-  </>;
-}
+export { default as Register } from "./routes/Register";
+export { default as LogIn } from "./routes/LogIn";
+export { default as Home } from "./routes/Home";

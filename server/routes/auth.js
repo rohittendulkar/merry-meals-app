@@ -1,20 +1,19 @@
 const express = require("express");
-const _ = require("lodash");
 const { User } = require("../models/users");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
-  let user = User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Invalid email and password");
+	let user = await User.findOne({ email: req.body.email });
+	if (!user) return res.status(400).send("Invalid email and password");
 
-  let password = bcrypt.compare(req.body.password, user.password);
-  if (!password) res.status(400).send("Invalid email and password");
+	let password = await bcrypt.compare(req.body.password, user.password);
+	if (!password) res.status(400).send("Invalid email and password");
 
-  const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
+	const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
 
-  res.send(token);
+	res.send(token);
 });
 
 module.exports = router;
