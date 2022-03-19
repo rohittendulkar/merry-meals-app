@@ -29,7 +29,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./util/scrollToTop";
 
 //restrict routes
-import { AuthRoute, SellerRoute, UserRoute } from "./util/route";
+import { AuthRoute, PartnerRoute, UserRoute } from "./util/route";
 
 //pages
 import home from "./pages/home";
@@ -38,7 +38,7 @@ import signup from "./pages/sign-up";
 import login from "./pages/login";
 import addRestaurant from "./pages/addRestaurant";
 import restaurant from "./pages/restaurant";
-import sellerDash from "./pages/sellerDashboard";
+import partnerDash from "./pages/partnerDashboard";
 import cart from "./pages/cart";
 import orders from "./pages/orders";
 
@@ -47,46 +47,46 @@ const theme = createMuiTheme(themeFile);
 const token = localStorage.jwt;
 
 if (token) {
-  const decodedToken = jwtDecode(token);
-  // console.log(decodedToken);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(logoutAction());
-    window.location.href = "/login";
-  } else {
-    store.dispatch({ type: SET_AUTHENTICATED });
-    axios.defaults.headers.common["Authorization"] = token;
-    store.dispatch(getUserData());
-  }
+	const decodedToken = jwtDecode(token);
+	// console.log(decodedToken);
+	if (decodedToken.exp * 1000 < Date.now()) {
+		store.dispatch(logoutAction());
+		window.location.href = "/login";
+	} else {
+		store.dispatch({ type: SET_AUTHENTICATED });
+		axios.defaults.headers.common["Authorization"] = token;
+		store.dispatch(getUserData());
+	}
 }
 
 function App() {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Router>
-          <AppBar />
-          <ScrollToTop />
-          <Switch>
-            <Route exact path="/" component={home} />
-            <AuthRoute exact path="/login" component={login} />
-            <AuthRoute exact path="/register" component={signup} />
-            <AuthRoute exact path="/addrestaurant" component={addRestaurant} />
-            <UserRoute exact path="/order/:restName" component={restaurant} />
-            <SellerRoute
-              exact
-              path="/seller/dashboard"
-              component={sellerDash}
-            />
-            <UserRoute exact path="/cart" component={cart} />
-            <UserRoute exact path="/orders" component={orders} />
-            <SellerRoute exact path="/seller/orders" component={orders} />
-            <Route component={error404} />
-          </Switch>
-          <Footer />
-        </Router>
-      </Provider>
-    </MuiThemeProvider>
-  );
+	return (
+		<MuiThemeProvider theme={theme}>
+			<Provider store={store}>
+				<Router>
+					<AppBar />
+					<ScrollToTop />
+					<Switch>
+						<Route exact path="/" component={home} />
+						<AuthRoute exact path="/login" component={login} />
+						<AuthRoute exact path="/register" component={signup} />
+						<AuthRoute exact path="/addrestaurant" component={addRestaurant} />
+						<UserRoute exact path="/order/:restName" component={restaurant} />
+						<PartnerRoute
+							exact
+							path="/partner/dashboard"
+							component={partnerDash}
+						/>
+						<UserRoute exact path="/cart" component={cart} />
+						<UserRoute exact path="/orders" component={orders} />
+						<PartnerRoute exact path="/partner/orders" component={orders} />
+						<Route component={error404} />
+					</Switch>
+					<Footer />
+				</Router>
+			</Provider>
+		</MuiThemeProvider>
+	);
 }
 
 export default App;

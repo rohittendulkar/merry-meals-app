@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", upload.array("images", 10), authRoutes);
-app.use("/seller", upload.single("image"), itemRoutes);
+app.use("/partner", upload.single("image"), itemRoutes);
 app.use("/user", upload.single("pdf"), userRoutes);
 
 //error middleware
