@@ -1,8 +1,0 @@
-{
-	"env": {
-		"MONGO_USER": "admin",
-		"MONGO_PASSWORD": "merrywheelsadmin123",
-		"MONGO_DATABASE": "merrymealsdb",
-		"SENDGRID_KEY": "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"
-	}
-}
