@@ -1,8 +1,8 @@
 {
-  "env": {
-    "MONGO_USER": "MONGO_DB_USERNAME",
-    "MONGO_PASSWORD": "MONGO_DB_PASSWORD",
-    "MONGO_DATABASE": "foodApp",
-    "SENDGRID_KEY": "YOUR_SENDGRID_API_KEY"
-  }
+	"env": {
+		"MONGO_USER": "admin",
+		"MONGO_PASSWORD": "merrywheelsadmin123",
+		"MONGO_DATABASE": "merrymealsdb",
+		"SENDGRID_KEY": "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"
+	}
 }
