@@ -13,7 +13,6 @@
 
 # misc
 .env
-nodemon.json
 .DS_Store
 .env.local
 .env.development.local
@@ -26,3 +25,5 @@ yarn-error.log*
 
 images
 /images
+
+nodemon.json
