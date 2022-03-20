@@ -17,6 +17,7 @@ const orderSchema = new Schema(
 				"Placed",
 				"Cancelled",
 				"Accepted",
+				"Tested For Quality",
 				"Completed",
 				"Out For Delivery",
 			],
