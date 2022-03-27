@@ -3,9 +3,8 @@ import React from "react";
 import ItemCard from "../components/ItemCard";
 import { useSelector } from "react-redux";
 
-//material-ui
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Grid from "@material-ui/core/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from "@mui/material/Grid";
 
 const useStyles = makeStyles({
 	para: {

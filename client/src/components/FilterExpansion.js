@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import makeStyles from '@mui/styles/makeStyles';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,8 +34,8 @@ export default function SimpleExpansionPanel(props) {
 
   return (
     <div className={classes.root}>
-      <ExpansionPanel>
-        <ExpansionPanelSummary
+      <Accordion>
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -44,8 +44,8 @@ export default function SimpleExpansionPanel(props) {
           <Typography className={classes.heading}>
             {props.condition === "Orders" && "Order Summary"}
           </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails
+        </AccordionSummary>
+        <AccordionDetails
           style={{ display: "flex", flexDirection: "column" }}
         >
           {props.condition === "Orders" && (
@@ -73,8 +73,8 @@ export default function SimpleExpansionPanel(props) {
               </Typography>
             </>
           )}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 }

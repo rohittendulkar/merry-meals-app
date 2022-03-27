@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 //M-UI
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 import RestaurantCard from "./RestaurantCard";
 

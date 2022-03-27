@@ -6,14 +6,14 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MyLocation from "@material-ui/icons/MyLocation";
-import LocationOn from "@material-ui/icons/LocationOn";
-import SearchIcon from "@material-ui/icons/Search";
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MyLocation from "@mui/icons-material/MyLocation";
+import LocationOn from "@mui/icons-material/LocationOn";
+import SearchIcon from "@mui/icons-material/Search";
 
 import axios from "axios";
 
@@ -188,7 +188,7 @@ export default function CustomizedInputBase(props) {
             className={classes.iconButton}
             aria-label="directions"
             onClick={getBrowserLocation}
-          >
+            size="large">
             <MyLocation />
           </IconButton>
         </>

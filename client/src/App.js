@@ -15,8 +15,12 @@ import axios from "./util/axios";
 import jwtDecode from "jwt-decode";
 
 //material-ui
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {
+    ThemeProvider as MuiThemeProvider,
+    StyledEngineProvider,
+    adaptV4Theme,
+    createTheme,
+} from "@mui/material/styles";
 
 //theme
 import themeFile from "./util/theme";
@@ -42,7 +46,7 @@ import partnerDash from "./pages/partnerDashboard";
 import cart from "./pages/cart";
 import orders from "./pages/orders";
 
-const theme = createMuiTheme(themeFile);
+const theme = createTheme(adaptV4Theme(themeFile));
 
 const token = localStorage.jwt;
 
@@ -61,32 +65,34 @@ if (token) {
 
 function App() {
 	return (
-		<MuiThemeProvider theme={theme}>
-			<Provider store={store}>
-				<Router>
-					<AppBar />
-					<ScrollToTop />
-					<Switch>
-						<Route exact path="/" component={home} />
-						<AuthRoute exact path="/login" component={login} />
-						<AuthRoute exact path="/register" component={signup} />
-						<AuthRoute exact path="/addrestaurant" component={addRestaurant} />
-						<UserRoute exact path="/order/:restName" component={restaurant} />
-						<PartnerRoute
-							exact
-							path="/partner/dashboard"
-							component={partnerDash}
-						/>
-						<UserRoute exact path="/cart" component={cart} />
-						<UserRoute exact path="/orders" component={orders} />
-						<PartnerRoute exact path="/partner/orders" component={orders} />
-						<Route component={error404} />
-					</Switch>
-					<Footer />
-				</Router>
-			</Provider>
-		</MuiThemeProvider>
-	);
+        <StyledEngineProvider injectFirst>
+            <MuiThemeProvider theme={theme}>
+                <Provider store={store}>
+                    <Router>
+                        <AppBar />
+                        <ScrollToTop />
+                        <Switch>
+                            <Route exact path="/" component={home} />
+                            <AuthRoute exact path="/login" component={login} />
+                            <AuthRoute exact path="/register" component={signup} />
+                            <AuthRoute exact path="/addrestaurant" component={addRestaurant} />
+                            <UserRoute exact path="/order/:restName" component={restaurant} />
+                            <PartnerRoute
+                                exact
+                                path="/partner/dashboard"
+                                component={partnerDash}
+                            />
+                            <UserRoute exact path="/cart" component={cart} />
+                            <UserRoute exact path="/orders" component={orders} />
+                            <PartnerRoute exact path="/partner/orders" component={orders} />
+                            <Route component={error404} />
+                        </Switch>
+                        <Footer />
+                    </Router>
+                </Provider>
+            </MuiThemeProvider>
+        </StyledEngineProvider>
+    );
 }
 
 export default App;

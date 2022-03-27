@@ -5,10 +5,9 @@ import openSocket from "socket.io-client";
 import { getOrders, socketStatusUpdate } from "../redux/actions/dataActions";
 import OrderCard from "../components/OrderCard";
 
-//material-ui
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,

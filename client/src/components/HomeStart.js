@@ -1,9 +1,8 @@
 import React from "react";
 
-//material-ui
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 import cover from "../images/food_upscaled.png";
 

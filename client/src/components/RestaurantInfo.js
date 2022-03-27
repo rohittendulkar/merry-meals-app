@@ -2,10 +2,9 @@ import React from "react";
 //redux
 import { useSelector } from "react-redux";
 
-//material-ui
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 import Spinner from "../util/spinner/spinner";
 import SwipeableImages from "./SwipeableImages";

@@ -2,11 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 //m-ui
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import makeStyles from '@mui/styles/makeStyles';
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
