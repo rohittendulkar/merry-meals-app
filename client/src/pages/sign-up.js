@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,168 +15,253 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import useForm from "../hooks/forms";
 
 import { signupUser } from "../redux/actions/authActions";
+import {
+	FormControlLabel,
+	FormLabel,
+	Paper,
+	Radio,
+	RadioGroup,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  ...theme.spreadThis,
-  title: {
-    margin: "48px 0px 10px 0px",
-  },
+	...theme.spreadThis,
+	title: {
+		margin: "48px 0px 10px 0px",
+	},
+	alignLeft: {
+		textAlign: "left",
+	},
+	paper: {
+		padding: theme.spacing(2),
+	},
 }));
 
 export default function Register() {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const { loading, serverError, errors } = useSelector((state) => state.UI);
-  const dispatch = useDispatch();
-  const history = useHistory();
+	const { loading, serverError, errorsUser } = useSelector((state) => state.UI);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const [proof, setProof] = useState({});
+	let fileError;
 
-  const signupHandle = (props) => {
-    const newUserData = {
-      email: inputs.email,
-      firstName: inputs.firstName,
-      lastName: inputs.lastName,
-      role: "ROLE_USER",
-      password: inputs.password,
-      confirmPassword: inputs.confirmPassword,
-    };
-    dispatch(signupUser(newUserData, history));
-  };
+	const { message, errors } = errorsUser || {};
 
-  const { inputs, handleInputChange, handleSubmit } = useForm(
-    {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-    signupHandle
-  );
+	if (message) {
+		if (message.includes("Upload a file")) fileError = message;
+	}
 
-  // console.log(errors);
-  let emailError = null;
-  let passwordError = null;
-  let confirmPasswordError = null;
-  let firstNameEmptyError = null;
-  let lastNameEmptyError = null;
+	const handleFileSelect = (event) => {
+		setProof(event.target.files);
+	};
 
-  if (errors) {
-    if (typeof errors !== "string") {
-      for (let i = 0; i < errors.length; i++) {
-        if (errors[i].msg.includes("First Name"))
-          firstNameEmptyError = errors[i].msg;
-        if (errors[i].msg.includes("Last Name"))
-          lastNameEmptyError = errors[i].msg;
-        if (errors[i].msg.includes("valid email")) emailError = errors[i].msg;
-        if (errors[i].msg.includes("Email address already"))
-          emailError = errors[i].msg;
-        if (errors[i].msg.includes("least 6 characters long"))
-          passwordError = errors[i].msg;
-        if (errors[i].msg.includes("Passwords have to"))
-          confirmPasswordError = errors[i].msg;
-      }
-    }
-  }
+	const signupHandle = (props) => {
+		const newUserData = {
+			email: inputs.email,
+			firstName: inputs.firstName,
+			lastName: inputs.lastName,
+			gender: inputs.gender,
+			birthDate: inputs.birthDate,
+			role: "ROLE_USER",
+			password: inputs.password,
+			confirmPassword: inputs.confirmPassword,
+		};
+		dispatch(signupUser(newUserData, history));
+	};
 
-  return (
-    <Grid container className={classes.form}>
-      <Grid item sm />
-      <Grid item sm>
-        <Typography variant="h3" className={classes.title}>
-          Register{" "}
-          <span role="img" aria-label="Pizza Emoji">
-            🍕
-          </span>
-        </Typography>
-        <form noValidate onSubmit={handleSubmit}>
-          <TextField
-            id="firstName"
-            name="firstName"
-            label="FirstName"
-            onChange={handleInputChange}
-            value={inputs.firstName}
-            className={classes.textField}
-            helperText={firstNameEmptyError}
-            error={firstNameEmptyError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id="lastName"
-            name="lastName"
-            label="LastName"
-            onChange={handleInputChange}
-            value={inputs.lastName}
-            className={classes.textField}
-            helperText={lastNameEmptyError}
-            error={lastNameEmptyError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
-            onChange={handleInputChange}
-            value={inputs.email}
-            className={classes.textField}
-            fullWidth
-            helperText={emailError}
-            error={emailError ? true : false}
-            required
-          />
-          <TextField
-            id="password"
-            name="password"
-            type="password"
-            label="Password"
-            onChange={handleInputChange}
-            value={inputs.password}
-            className={classes.textField}
-            helperText={passwordError}
-            error={passwordError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            label="Confirm Password"
-            onChange={handleInputChange}
-            value={inputs.confirmPassword}
-            className={classes.textField}
-            helperText={passwordError ? passwordError : confirmPasswordError}
-            error={passwordError ? true : confirmPasswordError ? true : false}
-            fullWidth
-            required
-          />
+	const { inputs, handleInputChange, handleSubmit } = useForm(
+		{
+			firstName: "",
+			lastName: "",
+			gender: "",
+			birthDate: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+		},
+		signupHandle
+	);
 
-          {serverError && (
-            <Typography variant="body2" className={classes.customError}>
-              {"server error, please try again"}
-            </Typography>
-          )}
+	// console.log(errors);
+	let emailError = null;
+	let passwordError = null;
+	let confirmPasswordError = null;
+	let firstNameEmptyError = null;
+	let lastNameEmptyError = null;
+	let genderEmptyError = null;
+	let birthDateEmptyError = null;
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            disabled={loading}
-          >
-            Sign-up
-            {loading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-          <br />
-          <small className={classes.small}>
-            Already have an account ? Login <Link to="/login">here</Link>
-          </small>
-        </form>
-      </Grid>
-      <Grid item sm />
-    </Grid>
-  );
+	if (errors) {
+		if (typeof errors !== "string") {
+			for (let i = 0; i < errors.length; i++) {
+				if (errors[i].msg.includes("First Name"))
+					firstNameEmptyError = errors[i].msg;
+				if (errors[i].msg.includes("Last Name"))
+					lastNameEmptyError = errors[i].msg;
+				if (errors[i].msg.includes("valid email")) emailError = errors[i].msg;
+				if (errors[i].msg.includes("Email address already"))
+					emailError = errors[i].msg;
+				if (errors[i].msg.includes("least 6 characters long"))
+					passwordError = errors[i].msg;
+				if (errors[i].msg.includes("Passwords have to"))
+					confirmPasswordError = errors[i].msg;
+			}
+		}
+	}
+
+	return (
+		<Grid container className={classes.form}>
+			<Grid item sm />
+			<Grid item sm>
+				<Paper className={classes.paper}>
+					<Typography variant="h3" className={classes.title}>
+						Register{" "}
+						<span role="img" aria-label="Pizza Emoji">
+							🍕
+						</span>
+					</Typography>
+					<form noValidate onSubmit={handleSubmit}>
+						<TextField
+							id="firstName"
+							name="firstName"
+							label="First Name"
+							onChange={handleInputChange}
+							value={inputs.firstName}
+							className={classes.textField}
+							helperText={firstNameEmptyError}
+							error={firstNameEmptyError ? true : false}
+							fullWidth
+							required
+						/>
+						<TextField
+							id="lastName"
+							name="lastName"
+							label="Last Name"
+							onChange={handleInputChange}
+							value={inputs.lastName}
+							className={classes.textField}
+							helperText={lastNameEmptyError}
+							error={lastNameEmptyError ? true : false}
+							fullWidth
+							required
+						/>
+						<TextField
+							id="email"
+							name="email"
+							label="Email"
+							onChange={handleInputChange}
+							value={inputs.email}
+							className={classes.textField}
+							fullWidth
+							helperText={emailError}
+							error={emailError ? true : false}
+							required
+						/>
+						<FormLabel
+							className={classes.textField}
+							name="gender-label"
+							style={{ display: "flex" }}
+						>
+							Gender
+						</FormLabel>
+						<RadioGroup
+							row
+							name="gender"
+							value={inputs.gender}
+							onChange={handleInputChange}
+							style={{ marginLeft: "4px" }}
+						>
+							<FormControlLabel value="male" control={<Radio />} label="Male" />
+							<FormControlLabel
+								value="female"
+								control={<Radio />}
+								label="Female"
+							/>
+							<FormControlLabel
+								value="other"
+								control={<Radio />}
+								label="Other"
+							/>
+						</RadioGroup>
+						<Typography
+							variant="body2"
+							component="p"
+							style={{ margin: "10px 10px 2px 10px" }}
+							className={classes.alignLeft}
+						>
+							Upload PDF Proof:
+						</Typography>
+						<input
+							accept="application/pdf"
+							className={classes.uploadImages}
+							style={{ display: "flex" }}
+							id="raised-button-file"
+							multiple
+							type="file"
+							onChange={handleFileSelect}
+						/>
+						{fileError && (
+							<Typography
+								variant="body2"
+								component="p"
+								style={{ margin: "4px 10px 2px 10px", color: "#f44336" }}
+							>
+								Upload a pdf proof as well
+							</Typography>
+						)}
+						<TextField
+							id="password"
+							name="password"
+							type="password"
+							label="Password"
+							onChange={handleInputChange}
+							value={inputs.password}
+							className={classes.textField}
+							helperText={passwordError}
+							error={passwordError ? true : false}
+							fullWidth
+							required
+						/>
+						<TextField
+							id="confirmPassword"
+							name="confirmPassword"
+							type="password"
+							label="Confirm Password"
+							onChange={handleInputChange}
+							value={inputs.confirmPassword}
+							className={classes.textField}
+							helperText={passwordError ? passwordError : confirmPasswordError}
+							error={passwordError ? true : confirmPasswordError ? true : false}
+							fullWidth
+							required
+						/>
+
+						{serverError && (
+							<Typography variant="body2" className={classes.customError}>
+								{"server error, please try again"}
+							</Typography>
+						)}
+
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className={classes.button}
+							disabled={loading}
+						>
+							Sign-up
+							{loading && (
+								<CircularProgress size={30} className={classes.progress} />
+							)}
+						</Button>
+						<br />
+						<small className={classes.small}>
+							Already have an account ? Login <Link to="/login">here</Link>
+						</small>
+					</form>
+				</Paper>
+			</Grid>
+			<Grid item sm />
+		</Grid>
+	);
 }
