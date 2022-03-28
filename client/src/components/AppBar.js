@@ -53,7 +53,7 @@ export default function AppBarPrimary() {
 			<Toolbar>
 				<Link to="/" className={classes.title}>
 					<Typography variant="h6" noWrap>
-						<span className={classes.name}>FoodHub</span>
+						<span className={classes.name}>MerryMeal</span>
 					</Typography>
 				</Link>
 				{authenticated ? (

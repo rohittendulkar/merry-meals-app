@@ -77,7 +77,7 @@ export default function Footer() {
         ) : (
           <>
             <Typography variant="h4" component="p">
-              FoodHub for Business
+              MerryMeal for Business
             </Typography>
             <Typography variant="body1" component="p">
               Get more out of your business, without losing focus on what is
@@ -92,10 +92,10 @@ export default function Footer() {
       </Grid>
       <Grid item xs={12} sm={3} className={classes.innerCont}>
         <Typography variant="h5" component="p">
-          FoodHub NewsLetter
+          MerryMeal NewsLetter
         </Typography>
         <Typography variant="body1" component="p" style={{ marginBottom: 28 }}>
-          Stay updated with new offers from FoodHub
+          Stay updated with new offers from MerryMeal
         </Typography>
         <TextField label="Your Email address" variant="outlined" />
         <Button className={classes.buttonStyleTwo}>SEND</Button>
