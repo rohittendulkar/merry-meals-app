@@ -3,24 +3,30 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import AdapterDayjs from "@mui/lab/AdapterDayjs";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 //custom-hook
 import useForm from "../hooks/forms";
 
 import { signupUser } from "../redux/actions/authActions";
 import {
+	Divider,
 	FormControlLabel,
 	FormLabel,
 	Paper,
 	Radio,
 	RadioGroup,
+	Stack,
 } from "@mui/material";
+import { Box } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
 	...theme.spreadThis,
@@ -42,6 +48,7 @@ export default function Register() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [proof, setProof] = useState({});
+	const [date, setDate] = useState();
 	let fileError;
 
 	const { message, errors } = errorsUser || {};
@@ -163,25 +170,47 @@ export default function Register() {
 						>
 							Gender
 						</FormLabel>
-						<RadioGroup
-							row
-							name="gender"
-							value={inputs.gender}
-							onChange={handleInputChange}
-							style={{ marginLeft: "4px" }}
+						<Stack
+							direction="row"
+							alignItems="center"
+							divider={<Divider orientation="vertical" flexItem />}
+							spacing={2}
 						>
-							<FormControlLabel value="male" control={<Radio />} label="Male" />
-							<FormControlLabel
-								value="female"
-								control={<Radio />}
-								label="Female"
-							/>
-							<FormControlLabel
-								value="other"
-								control={<Radio />}
-								label="Other"
-							/>
-						</RadioGroup>
+							<RadioGroup
+								row
+								name="gender"
+								value={inputs.gender}
+								onChange={handleInputChange}
+								style={{ marginLeft: "4px" }}
+							>
+								<FormControlLabel
+									value="male"
+									control={<Radio />}
+									label="Male"
+								/>
+								<FormControlLabel
+									value="female"
+									control={<Radio />}
+									label="Female"
+								/>
+								<FormControlLabel
+									value="other"
+									control={<Radio />}
+									label="Other"
+								/>
+							</RadioGroup>
+
+							<LocalizationProvider dateAdapter={AdapterDayjs}>
+								<DatePicker
+									label="Birth Date"
+									value={date}
+									onChange={(newDate) => {
+										setDate(newDate);
+									}}
+									renderInput={(params) => <TextField {...params} />}
+								/>
+							</LocalizationProvider>
+						</Stack>
 						<Typography
 							variant="body2"
 							component="p"
