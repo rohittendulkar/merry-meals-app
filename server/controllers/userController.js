@@ -230,7 +230,7 @@ exports.getLoggedInUser = (req, res, next) => {
 	const token = authHeader.split(" ")[1];
 	let decodedToken;
 	try {
-		decodedToken = jwt.verify(token, "supersecretkey-foodWebApp");
+		decodedToken = jwt.verify(token, "supersecretkey-merryMealApp");
 	} catch (err) {
 		err.statusCode = 500;
 		throw err;
@@ -356,7 +356,7 @@ exports.getOrders = (req, res, next) => {
 	const token = authHeader.split(" ")[1];
 	let decodedToken;
 	try {
-		decodedToken = jwt.verify(token, "supersecretkey-foodWebApp");
+		decodedToken = jwt.verify(token, "supersecretkey-merryMealApp");
 	} catch (err) {
 		err.statusCode = 500;
 		throw err;
@@ -406,7 +406,7 @@ exports.postOrderStatus = (req, res, next) => {
 	const token = authHeader.split(" ")[1];
 	let decodedToken;
 	try {
-		decodedToken = jwt.verify(token, "supersecretkey-foodWebApp");
+		decodedToken = jwt.verify(token, "supersecretkey-merryMealApp");
 	} catch (err) {
 		err.statusCode = 500;
 		throw err;

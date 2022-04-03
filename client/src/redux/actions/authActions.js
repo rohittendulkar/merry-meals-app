@@ -77,7 +77,7 @@ export const getUserData = () => (dispatch) => {
 				payload: res.data.result,
 			});
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => console.log(err + "ok"));
 };
 
 export const signupPartner = (newPartnerData, history) => (dispatch) => {

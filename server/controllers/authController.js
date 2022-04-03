@@ -27,11 +27,25 @@ exports.signupUser = (req, res, next) => {
 		throw error;
 	}
 
+	if (req.files.length == 0) {
+		const error = new Error("Upload pdf proof as well.");
+		error.statusCode = 422;
+		throw error;
+	}
+
+	const arrayFiles = req.files.map((file) => file.path);
 	const email = req.body.email;
 	const firstName = req.body.firstName;
 	const password = req.body.password;
 	const lastName = req.body.lastName;
 	const role = req.body.role;
+	const gender = req.body.gender;
+	const street = req.body.street;
+	const aptName = req.body.aptName;
+	const locality = req.body.locality;
+	const zip = req.body.zip;
+	const phoneNo = req.body.phoneNo;
+	const birthdate = req.body.birthdate;
 	let token;
 
 	if (role !== "ROLE_USER") {
@@ -60,6 +74,16 @@ exports.signupUser = (req, res, next) => {
 			const user = new User({
 				firstName: firstName,
 				lastName: lastName,
+				gender: gender,
+				birthdate: birthdate,
+				imgProof: arrayFiles,
+				address: {
+					street: street,
+					zip: zip,
+					phoneNo: phoneNo,
+					locality: locality,
+					aptName: aptName,
+				},
 				account: savedAccount,
 			});
 			return user.save();
@@ -67,7 +91,7 @@ exports.signupUser = (req, res, next) => {
 		.then((savedUser) => {
 			transporter.sendMail({
 				to: email,
-				from: "YOUR_SENDGRID_VERIFIED_EMAIL",
+				from: "vrekedit00@gmail.com",
 				subject: "Verify your Account on MerryMeal",
 				html: `
                       <p>Please verify your email by clicking on the link below - MerryMeal</p>
@@ -144,7 +168,7 @@ exports.login = (req, res, next) => {
 			}
 			const token = jwt.sign(
 				{ accountId: loadedUser._id.toString() },
-				"supersecretkey-foodWebApp",
+				"supersecretkey-merryMealApp",
 				{ expiresIn: "10h" }
 			);
 			res.status(200).json({ message: "Logged-in successfully", token: token });
@@ -239,7 +263,7 @@ exports.signupPartner = (req, res, next) => {
 		.then((savedPartner) => {
 			transporter.sendMail({
 				to: email,
-				from: "YOUR_SENDGRID_VERIFIED_EMAIL",
+				from: "vrekedit00@gmail.com",
 				subject: "Verify your Account on MerryMeal",
 				html: `
                       <p>Please verify your email by clicking on the link below - MerryMeal</p>

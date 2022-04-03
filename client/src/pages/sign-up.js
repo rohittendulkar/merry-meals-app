@@ -26,7 +26,6 @@ import {
 	RadioGroup,
 	Stack,
 } from "@mui/material";
-import { Box } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
 	...theme.spreadThis,
@@ -47,46 +46,24 @@ export default function Register() {
 	const { loading, serverError, errorsUser } = useSelector((state) => state.UI);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [birthdate, setDate] = useState(new Date());
+	const handleDateChange = (date) => {
+		console.log(date);
+		setDate(date);
+	};
+
 	const [proof, setProof] = useState({});
-	const [date, setDate] = useState();
 	let fileError;
 
 	const { message, errors } = errorsUser || {};
 
 	if (message) {
-		if (message.includes("Upload a file")) fileError = message;
+		if (message.includes("Upload pdf proof")) fileError = message;
 	}
 
 	const handleFileSelect = (event) => {
 		setProof(event.target.files);
 	};
-
-	const signupHandle = (props) => {
-		const newUserData = {
-			email: inputs.email,
-			firstName: inputs.firstName,
-			lastName: inputs.lastName,
-			gender: inputs.gender,
-			birthDate: inputs.birthDate,
-			role: "ROLE_USER",
-			password: inputs.password,
-			confirmPassword: inputs.confirmPassword,
-		};
-		dispatch(signupUser(newUserData, history));
-	};
-
-	const { inputs, handleInputChange, handleSubmit } = useForm(
-		{
-			firstName: "",
-			lastName: "",
-			gender: "",
-			birthDate: "",
-			email: "",
-			password: "",
-			confirmPassword: "",
-		},
-		signupHandle
-	);
 
 	// console.log(errors);
 	let emailError = null;
@@ -94,10 +71,15 @@ export default function Register() {
 	let confirmPasswordError = null;
 	let firstNameEmptyError = null;
 	let lastNameEmptyError = null;
+	let streetError = null;
+	let aptError = null;
+	let localityError = null;
+	let zipError = null;
+	let phoneNoError = null;
 	let genderEmptyError = null;
-	let birthDateEmptyError = null;
+	let dateEmptyError = null;
 
-	if (errors) {
+	/* if (errors) {
 		if (typeof errors !== "string") {
 			for (let i = 0; i < errors.length; i++) {
 				if (errors[i].msg.includes("First Name"))
@@ -113,7 +95,76 @@ export default function Register() {
 					confirmPasswordError = errors[i].msg;
 			}
 		}
+	} */
+
+	if (errors) {
+		for (let error of errors) {
+			if (error.msg.includes("First Name")) firstNameEmptyError = error.msg;
+			if (error.msg.includes("Last Name")) lastNameEmptyError = error.msg;
+			if (error.msg.includes("valid email")) emailError = error.msg;
+			if (error.msg.includes("Email address already")) emailError = error.msg;
+			if (error.msg.includes("least 6 characters long"))
+				passwordError = error.msg;
+			if (error.msg.includes("Passwords have to"))
+				confirmPasswordError = error.msg;
+			if (error.msg.includes("10 digit phone")) phoneNoError = error.msg;
+			if (error.msg.includes("Zipcode cannot")) zipError = error.msg;
+			if (error.msg.includes("Locality cannot")) localityError = error.msg;
+			if (error.msg.includes("Apartment name cannot")) aptError = error.msg;
+			if (error.msg.includes("Street cannot")) streetError = error.msg;
+			if (error.msg.includes("Gender cannot")) genderEmptyError = error.msg;
+			if (error.msg.includes("Enter Valid Birth")) dateEmptyError = error.msg;
+		}
 	}
+
+	const signupHandle = (props) => {
+		/* const newUserData = {
+			email: inputs.email,
+			firstName: inputs.firstName,
+			lastName: inputs.lastName,
+			gender: inputs.gender,
+			birthDate: inputs.birthDate,
+			role: "ROLE_USER",
+			password: inputs.password,
+			confirmPassword: inputs.confirmPassword,
+		}; */
+		const newUserData = new FormData();
+		for (let i = 0; i < proof.length; i++) {
+			newUserData.append("proof", proof[i]);
+		}
+		newUserData.append("firstName", inputs.firstName);
+		newUserData.append("lastName", inputs.lastName);
+		newUserData.append("email", inputs.email);
+		newUserData.append("gender", inputs.gender);
+		newUserData.append("birthdate", birthdate);
+		newUserData.append("street", inputs.street);
+		newUserData.append("aptName", inputs.aptName);
+		newUserData.append("locality", inputs.locality);
+		newUserData.append("zip", inputs.zip);
+		newUserData.append("phoneNo", inputs.phoneNo);
+		newUserData.append("password", inputs.password);
+		newUserData.append("confirmPassword", inputs.confirmPassword);
+		newUserData.append("role", "ROLE_USER");
+
+		dispatch(signupUser(newUserData, history));
+	};
+
+	const { inputs, handleInputChange, handleSubmit } = useForm(
+		{
+			firstName: "",
+			lastName: "",
+			gender: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
+			street: "",
+			aptName: "",
+			locality: "",
+			zip: "",
+			phoneNo: "",
+		},
+		signupHandle
+	);
 
 	return (
 		<Grid container className={classes.form}>
@@ -165,7 +216,6 @@ export default function Register() {
 						/>
 						<FormLabel
 							className={classes.textField}
-							name="gender-label"
 							style={{ display: "flex" }}
 						>
 							Gender
@@ -198,19 +248,101 @@ export default function Register() {
 									control={<Radio />}
 									label="Other"
 								/>
+								{genderEmptyError && (
+									<Typography
+										variant="body2"
+										component="p"
+										style={{ margin: "4px 10px 2px 10px", color: "#f44336" }}
+									>
+										Gender empty
+									</Typography>
+								)}
 							</RadioGroup>
 
 							<LocalizationProvider dateAdapter={AdapterDayjs}>
 								<DatePicker
+									// inputFormat="YYYY/MM/DD"
+									name="birthdate"
 									label="Birth Date"
-									value={date}
-									onChange={(newDate) => {
-										setDate(newDate);
-									}}
-									renderInput={(params) => <TextField {...params} />}
+									value={birthdate}
+									onChange={handleDateChange}
+									renderInput={(params) => (
+										<TextField {...params} helperText={dateEmptyError} />
+									)}
 								/>
 							</LocalizationProvider>
 						</Stack>
+						<Typography
+							variant="body2"
+							component="p"
+							style={{ margin: "10px 10px 2px 10px", textAlign: "left" }}
+						>
+							Address:
+						</Typography>
+						<div className={classes.address}>
+							<TextField
+								id="aptName"
+								name="aptName"
+								label="Floor/Apartment Name"
+								className={classes.textField}
+								onChange={handleInputChange}
+								value={inputs.aptName}
+								helperText={aptError}
+								error={aptError ? true : false}
+								fullWidth
+								required
+							/>
+							<TextField
+								id="locality"
+								name="locality"
+								label="Locality"
+								className={classes.textField}
+								onChange={handleInputChange}
+								value={inputs.locality}
+								helperText={localityError}
+								error={localityError ? true : false}
+								fullWidth
+								required
+							/>
+							<TextField
+								id="street"
+								name="street"
+								label="Street"
+								className={classes.textField}
+								onChange={handleInputChange}
+								value={inputs.street}
+								helperText={streetError}
+								error={streetError ? true : false}
+								fullWidth
+								required
+							/>
+							<TextField
+								id="zipCode"
+								name="zip"
+								label="Zip Code"
+								className={classes.textField}
+								onChange={handleInputChange}
+								value={inputs.zip}
+								helperText={zipError}
+								error={zipError ? true : false}
+								type="number"
+								fullWidth
+								required
+							/>
+							<TextField
+								id="phoneNo"
+								name="phoneNo"
+								label="Contact Number"
+								className={classes.textField}
+								type="number"
+								onChange={handleInputChange}
+								value={inputs.phoneNo}
+								helperText={phoneNoError}
+								error={phoneNoError ? true : false}
+								fullWidth
+								required
+							/>
+						</div>
 						<Typography
 							variant="body2"
 							component="p"

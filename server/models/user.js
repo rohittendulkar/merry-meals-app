@@ -7,8 +7,6 @@ const deliveryInfo = {
 	aptName: String,
 	zip: String,
 	phoneNo: Number,
-	lat: Number,
-	lng: Number,
 };
 
 const userSchema = new Schema(
@@ -25,18 +23,16 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		birthDate: {
+		birthdate: {
 			type: Date,
 			required: true,
-			default: Date.now,
 		},
-		imgProof: {
-			type: String,
-			required: true,
-		},
-		formattedAddress: {
-			type: String,
-		},
+		imgProof: [
+			{
+				type: String,
+				required: true,
+			},
+		],
 		address: deliveryInfo,
 		account: { type: Schema.Types.ObjectId, required: true, ref: "Account" },
 		cart: {

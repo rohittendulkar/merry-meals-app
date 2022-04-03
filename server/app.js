@@ -34,6 +34,9 @@ const fileFilter = (req, file, cb) => {
 
 const app = express();
 
+const cors = require("cors");
+app.use(cors());
+
 const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 app.use(bodyParser.json());
@@ -50,9 +53,17 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use("/auth", upload.array("images", 10), authRoutes);
+// app.use("/auth", upload.array("images", 10), authRoutes);
+/* app.use(
+	"/auth",
+	upload.fields([
+		{ name: "images", maxCount: 10 },
+		{ name: "proof", maxCount: 10 },
+	]),
+	authRoutes
+); */
 app.use("/partner", upload.single("image"), itemRoutes);
-app.use("/user", upload.single("pdf"), userRoutes);
+app.use("/auth", upload.array("proof", 10), authRoutes);
 
 //error middleware
 app.use((error, req, res, next) => {
