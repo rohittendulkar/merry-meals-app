@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  userRole: {
-    type: String,
-    required: true,
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
   firstName: {
     type: String,
@@ -31,6 +31,26 @@ const userSchema = new mongoose.Schema({
     required: true,
     maxlength: 500,
   },
+  street: {
+    type: String,
+    required: true,
+    maxlength: 500,
+  },
+  locality: {
+    type: String,
+    required: true,
+    maxlength: 500,
+  },
+  zip: {
+    type: Number,
+    required: true,
+    maxlength: 500,
+  },
+  phone: {
+    type: Number,
+    required: true,
+    maxlength: 500,
+  },
   email: {
     type: String,
     required: true,
@@ -41,12 +61,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 3,
-    maxlength: 255,
-  },
-  issues: {
-    type: String,
-    required: false,
     minlength: 3,
     maxlength: 255,
   },
