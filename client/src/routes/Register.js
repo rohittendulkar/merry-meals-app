@@ -17,6 +17,7 @@ import {
   CardContent,
   Box,
   FormControl,
+  Input,
 } from "@mui/material";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDayjs from "@mui/lab/AdapterDayjs";
@@ -186,53 +187,60 @@ class Register extends Component {
                       required
                     />
                   </FormControl>
-                  <FormLabel
-                    className={classes.textField}
-                    style={{ display: "flex" }}
-                  >
-                    Gender
-                  </FormLabel>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    divider={<Divider orientation="vertical" flexItem />}
-                    spacing={2}
-                  >
-                    <RadioGroup
-                      row
-                      name="gender"
-                      value={gender}
-                      onChange={this.handleInputChange}
-                      style={{ marginLeft: "4px" }}
+                  <FormControl fullWidth sx={{ m: 1 }}>
+                    <FormLabel
+                      className={classes.textField}
+                      style={{ display: "flex" }}
                     >
-                      <FormControlLabel
-                        value="male"
-                        control={<Radio />}
-                        label="Male"
-                      />
-                      <FormControlLabel
-                        value="female"
-                        control={<Radio />}
-                        label="Female"
-                      />
-                      <FormControlLabel
-                        value="other"
-                        control={<Radio />}
-                        label="Other"
-                      />
-                    </RadioGroup>
-
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
-                        // inputFormat="YYYY/MM/DD"
-                        name="birthDate"
-                        label="Birth Date"
-                        value={birthDate}
-                        onChange={this.handleInputChange}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </LocalizationProvider>
-                  </Stack>
+                      Gender
+                    </FormLabel>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      divider={<Divider orientation="vertical" flexItem />}
+                      spacing={2}
+                    >
+                      <FormControl fullWidth sx={{ m: 1 }}>
+                        <RadioGroup
+                          row
+                          name="gender"
+                          value={gender}
+                          onChange={this.handleInputChange}
+                          style={{ marginLeft: "4px" }}
+                        >
+                          <FormControlLabel
+                            value="male"
+                            control={<Radio />}
+                            label="Male"
+                          />
+                          <FormControlLabel
+                            value="female"
+                            control={<Radio />}
+                            label="Female"
+                          />
+                          <FormControlLabel
+                            value="other"
+                            control={<Radio />}
+                            label="Other"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                      <FormControl fullWidth sx={{ m: 1 }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            // inputFormat="YYYY/MM/DD"
+                            name="birthDate"
+                            label="Birth Date"
+                            value={birthDate}
+                            onChange={(newDate) => {
+                              this.setState({ birthDate: newDate });
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                          />
+                        </LocalizationProvider>
+                      </FormControl>
+                    </Stack>
+                  </FormControl>
                   <Typography
                     variant="body2"
                     component="p"
@@ -240,98 +248,115 @@ class Register extends Component {
                   >
                     Address:
                   </Typography>
+
                   <div className={classes.address}>
-                    <TextField
-                      id="address"
-                      name="address"
-                      label="Floor/Apartment Name"
-                      className={classes.textField}
-                      onChange={this.handleInputChange}
-                      value={address}
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      id="locality"
-                      name="locality"
-                      label="Locality"
-                      className={classes.textField}
-                      onChange={this.handleInputChange}
-                      value={locality}
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      id="street"
-                      name="street"
-                      label="Street"
-                      className={classes.textField}
-                      onChange={this.handleInputChange}
-                      value={street}
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      id="zipCode"
-                      name="zip"
-                      label="Zip Code"
-                      className={classes.textField}
-                      onChange={this.handleInputChange}
-                      value={zip}
-                      type="number"
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      id="phoneNo"
-                      name="phoneNo"
-                      label="Contact Number"
-                      className={classes.textField}
-                      type="number"
-                      onChange={this.handleInputChange}
-                      value={phone}
-                      fullWidth
-                      required
-                    />
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                        id="address"
+                        name="address"
+                        label="Floor/Apartment Name"
+                        className={classes.textField}
+                        onChange={this.handleInputChange}
+                        value={address}
+                        fullWidth
+                        required
+                      />
+                    </FormControl>
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                        id="locality"
+                        name="locality"
+                        label="Locality"
+                        className={classes.textField}
+                        onChange={this.handleInputChange}
+                        value={locality}
+                        fullWidth
+                        required
+                      />
+                    </FormControl>
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                        id="street"
+                        name="street"
+                        label="Street"
+                        className={classes.textField}
+                        onChange={this.handleInputChange}
+                        value={street}
+                        fullWidth
+                        required
+                      />
+                    </FormControl>
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                        id="zipCode"
+                        name="zip"
+                        label="Zip Code"
+                        className={classes.textField}
+                        onChange={this.handleInputChange}
+                        value={zip}
+                        type="number"
+                        fullWidth
+                        required
+                      />
+                    </FormControl>
+                    <FormControl fullWidth sx={{ m: 1 }}>
+                      <TextField
+                        id="phoneNo"
+                        name="phoneNo"
+                        label="Contact Number"
+                        className={classes.textField}
+                        type="number"
+                        onChange={this.handleInputChange}
+                        value={phone}
+                        fullWidth
+                        required
+                      />
+                    </FormControl>
                   </div>
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    style={{ margin: "10px 10px 2px 10px" }}
-                    className={classes.alignLeft}
-                  >
-                    Upload PDF Proof:
-                  </Typography>
-                  <input
-                    accept="application/pdf"
-                    className={classes.uploadImages}
-                    style={{ display: "flex" }}
-                    id="raised-button-file"
-                    multiple
-                    type="file"
-                    onChange={this.handleInputChange}
-                  />
-
-                  <TextField
-                    id="password"
-                    name="password"
-                    type="password"
-                    label="Password"
-                    onChange={this.handleInputChange}
-                    value={password}
-                    className={classes.textField}
-                    fullWidth
-                    required
-                  />
-
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                  >
-                    Sign-up
-                  </Button>
+                  <FormControl fullWidth sx={{ m: 1 }}>
+                    <Typography
+                      variant="body2"
+                      component="p"
+                      style={{ margin: "10px 10px 2px 10px" }}
+                      className={classes.alignLeft}
+                    >
+                      Upload PDF Proof:
+                    </Typography>
+                    <label htmlFor="contained-button-file">
+                      <Input
+                        accept="image/*"
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                      />
+                      <Button variant="contained" component="span">
+                        Upload
+                      </Button>
+                    </label>
+                  </FormControl>
+                  <FormControl fullWidth sx={{ m: 1 }}>
+                    <TextField
+                      id="password"
+                      name="password"
+                      type="password"
+                      label="Password"
+                      onChange={this.handleInputChange}
+                      value={password}
+                      className={classes.textField}
+                      fullWidth
+                      required
+                    />
+                  </FormControl>
+                  <FormControl fullWidth sx={{ m: 1 }}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="success"
+                      className={classes.button}
+                    >
+                      Sign-up
+                    </Button>
+                  </FormControl>
                 </form>
               </Grid>
             </CardContent>
