@@ -1,21 +1,22 @@
-import './App.css';
-import {Link} from 'react-router-dom'
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ResponsiveAppBar from "./components/Navbar";
+import { About, Home, LogIn, Register } from "./imports";
 
 function App() {
-  return (
-    <>
-    <h1>This is the Merry Meals Application</h1>
-    <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/register">Register</Link> |{" "}
-        <Link to="/login">Log in</Link>
-      </nav>
-    </>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				<ResponsiveAppBar />
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/login" element={<LogIn />} />
+					<Route path="/about" element={<About />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;

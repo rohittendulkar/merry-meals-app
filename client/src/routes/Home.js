@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
+import ResponsiveAppBar from "../components/Navbar";
 
-class Home extends Component {
-  state = {};
-  render() {
-    return (
-      <div>
-        <h2>Welcome {}</h2>
-      </div>
-    );
-  }
-}
+const Home = () => {
+	return (
+		<>
+			<h1>This is the Merry Meals Application</h1>
+		</>
+	);
+};
 
 export default Home;
