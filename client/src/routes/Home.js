@@ -1,10 +1,15 @@
+import { Typography } from "@mui/material";
 import React from "react";
-import ResponsiveAppBar from "../components/Navbar";
 
 const Home = () => {
 	return (
 		<>
-			<h1>This is the Merry Meals Application</h1>
+			<Typography color="error" variant="h1">
+				Welcome to Merry
+			</Typography>
+			<Typography color="error" variant="h1">
+				Meals
+			</Typography>
 		</>
 	);
 };
