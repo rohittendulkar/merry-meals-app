@@ -1,380 +1,321 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { registerUser } from "../service/userService";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { withStyles } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import {
-  Button,
-  Divider,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Stack,
-  TextField,
-  Card,
-  CardContent,
-  Box,
-  FormControl,
-  Input,
+	Button,
+	Divider,
+	FormControlLabel,
+	FormLabel,
+	Radio,
+	RadioGroup,
+	Stack,
+	TextField,
+	FormControl,
+	Input,
+	Paper,
 } from "@mui/material";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDayjs from "@mui/lab/AdapterDayjs";
 import DatePicker from "@mui/lab/DatePicker";
 
-const styles = {
-  title: {
-    margin: "48px 0px 10px 0px",
-  },
-  alignLeft: {
-    textAlign: "left",
-  },
-  paper: {
-    padding: 2,
-  },
-};
+const useStyles = makeStyles((theme) => ({
+	form: {
+		textAlign: "center",
+	},
+	textField: {
+		margin: 10,
+	},
+	title: {
+		margin: "48px 0px 10px 0px",
+	},
+	alignLeft: {
+		textAlign: "left",
+	},
+	paper: {
+		padding: theme.spacing(2),
+	},
+}));
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {
-        userRole: "",
-        firstName: "",
-        lastName: "",
-        gender: "",
-        birthDate: "",
-        email: "",
-        password: "",
-        address: "",
-        street: "",
-        locality: "",
-        zip: "",
-        phone: "",
-        fileUpload: "",
-      },
-    };
-  }
+export default function Register() {
+	const classes = useStyles();
 
-  handleInputChange = ({ target: input }) => {
-    const data = { ...this.state.data };
-    data[input.name] = input.value;
-    this.setState({ data });
-  };
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [gender, setGender] = useState("");
+	const [birthDate, setDate] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [address, setAddress] = useState("");
+	const [street, setStreet] = useState("");
+	const [locality, setLocality] = useState("");
+	const [zip, setZip] = useState("");
+	const [fileUpload, setFile] = useState("");
+	const [phone, setPhone] = useState("");
 
-  register = async (e) => {
-    e.preventDefault();
+	const register = async (e) => {
+		e.preventDefault();
 
-    const {
-      userRole,
-      firstName,
-      lastName,
-      gender,
-      birthDate,
-      email,
-      password,
-      address,
-      street,
-      locality,
-      zip,
-      phone,
-      fileUpload,
-    } = this.state.data;
+		const {
+			userRole,
+			firstName,
+			lastName,
+			gender,
+			birthDate,
+			email,
+			password,
+			address,
+			street,
+			locality,
+			zip,
+			phone,
+			fileUpload,
+		} = this.state.data;
 
-    let user = {
-      userRole,
-      firstName,
-      lastName,
-      gender,
-      birthDate,
-      email,
-      password,
-      address,
-      street,
-      locality,
-      zip,
-      phone,
-      fileUpload,
-    };
-    console.log(user);
-    const response = await registerUser(user);
-    const data = response.data;
-    console.log(data);
-  };
+		let user = {
+			userRole,
+			firstName,
+			lastName,
+			gender,
+			birthDate,
+			email,
+			password,
+			address,
+			street,
+			locality,
+			zip,
+			phone,
+			fileUpload,
+		};
+		console.log(user);
+		const response = await registerUser(user);
+		const data = response.data;
+		console.log(data);
+	};
+	return (
+		<Grid container className={classes.form}>
+			<Grid item sm />
+			<Grid item sm>
+				<Paper>
+					<Typography variant="h3" className={classes.title}>
+						Register{" "}
+						<span role="img" aria-label="Pizza Emoji">
+							🍕
+						</span>
+					</Typography>
+					<br />
+					<form noValidate onSubmit={this.register}>
+						<FormControl sx={{ m: 1 }}>
+							<TextField
+								id="firstName"
+								name="firstName"
+								label="First Name"
+								onChange={this.handleInputChange}
+								value={firstName}
+								className={classes.textField}
+								fullWidth
+								required
+							/>
+						</FormControl>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<TextField
+								id="lastName"
+								name="lastName"
+								label="Last Name"
+								onChange={this.handleInputChange}
+								value={lastName}
+								className={classes.textField}
+								fullWidth
+								required
+							/>
+						</FormControl>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<TextField
+								id="email"
+								name="email"
+								label="Email"
+								onChange={this.handleInputChange}
+								value={email}
+								className={classes.textField}
+								fullWidth
+								required
+							/>
+						</FormControl>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<FormLabel
+								className={classes.textField}
+								style={{ display: "flex" }}
+							>
+								Gender
+							</FormLabel>
+							<Stack
+								direction="row"
+								alignItems="center"
+								divider={<Divider orientation="vertical" flexItem />}
+								spacing={2}
+							>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<RadioGroup
+										row
+										name="gender"
+										value={gender}
+										onChange={this.handleInputChange}
+										style={{ marginLeft: "4px" }}
+									>
+										<FormControlLabel
+											value="male"
+											control={<Radio />}
+											label="Male"
+										/>
+										<FormControlLabel
+											value="female"
+											control={<Radio />}
+											label="Female"
+										/>
+										<FormControlLabel
+											value="other"
+											control={<Radio />}
+											label="Other"
+										/>
+									</RadioGroup>
+								</FormControl>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<LocalizationProvider dateAdapter={AdapterDayjs}>
+										<DatePicker
+											// inputFormat="YYYY/MM/DD"
+											name="birthDate"
+											label="Birth Date"
+											value={birthDate}
+											onChange={(newDate) => {
+												this.setState({ birthDate: newDate });
+											}}
+											renderInput={(params) => <TextField {...params} />}
+										/>
+									</LocalizationProvider>
+								</FormControl>
+							</Stack>
+						</FormControl>
+						<Typography
+							variant="body2"
+							component="p"
+							style={{ margin: "10px 10px 2px 10px", textAlign: "left" }}
+						>
+							Address:
+						</Typography>
 
-  render() {
-    const {
-      firstName,
-      lastName,
-      birthDate,
-      gender,
-      email,
-      password,
-      address,
-      street,
-      locality,
-      zip,
-      phone,
-      fileUpload,
-    } = this.state.data;
-
-    const { classes } = this.props;
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <Box
-          sx={{
-            width: 500,
-            height: 500,
-          }}
-        ></Box>
-        <Box
-          sx={{
-            width: 800,
-            height: 800,
-          }}
-        >
-          <Card>
-            <CardContent>
-              <Grid item sm>
-                <br />
-                <Typography variant="h3" className={classes.title}>
-                  Register{" "}
-                  <span role="img" aria-label="Pizza Emoji">
-                    🍕
-                  </span>
-                </Typography>
-                <br />
-                <form noValidate onSubmit={this.register}>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <TextField
-                      id="firstName"
-                      name="firstName"
-                      label="First Name"
-                      onChange={this.handleInputChange}
-                      value={firstName}
-                      className={classes.textField}
-                      fullWidth
-                      required
-                    />
-                  </FormControl>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <TextField
-                      id="lastName"
-                      name="lastName"
-                      label="Last Name"
-                      onChange={this.handleInputChange}
-                      value={lastName}
-                      className={classes.textField}
-                      fullWidth
-                      required
-                    />
-                  </FormControl>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <TextField
-                      id="email"
-                      name="email"
-                      label="Email"
-                      onChange={this.handleInputChange}
-                      value={email}
-                      className={classes.textField}
-                      fullWidth
-                      required
-                    />
-                  </FormControl>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <FormLabel
-                      className={classes.textField}
-                      style={{ display: "flex" }}
-                    >
-                      Gender
-                    </FormLabel>
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      divider={<Divider orientation="vertical" flexItem />}
-                      spacing={2}
-                    >
-                      <FormControl fullWidth sx={{ m: 1 }}>
-                        <RadioGroup
-                          row
-                          name="gender"
-                          value={gender}
-                          onChange={this.handleInputChange}
-                          style={{ marginLeft: "4px" }}
-                        >
-                          <FormControlLabel
-                            value="male"
-                            control={<Radio />}
-                            label="Male"
-                          />
-                          <FormControlLabel
-                            value="female"
-                            control={<Radio />}
-                            label="Female"
-                          />
-                          <FormControlLabel
-                            value="other"
-                            control={<Radio />}
-                            label="Other"
-                          />
-                        </RadioGroup>
-                      </FormControl>
-                      <FormControl fullWidth sx={{ m: 1 }}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            // inputFormat="YYYY/MM/DD"
-                            name="birthDate"
-                            label="Birth Date"
-                            value={birthDate}
-                            onChange={(newDate) => {
-                              this.setState({ birthDate: newDate });
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                          />
-                        </LocalizationProvider>
-                      </FormControl>
-                    </Stack>
-                  </FormControl>
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    style={{ margin: "10px 10px 2px 10px", textAlign: "left" }}
-                  >
-                    Address:
-                  </Typography>
-
-                  <div className={classes.address}>
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                      <TextField
-                        id="address"
-                        name="address"
-                        label="Floor/Apartment Name"
-                        className={classes.textField}
-                        onChange={this.handleInputChange}
-                        value={address}
-                        fullWidth
-                        required
-                      />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                      <TextField
-                        id="locality"
-                        name="locality"
-                        label="Locality"
-                        className={classes.textField}
-                        onChange={this.handleInputChange}
-                        value={locality}
-                        fullWidth
-                        required
-                      />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                      <TextField
-                        id="street"
-                        name="street"
-                        label="Street"
-                        className={classes.textField}
-                        onChange={this.handleInputChange}
-                        value={street}
-                        fullWidth
-                        required
-                      />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                      <TextField
-                        id="zipCode"
-                        name="zip"
-                        label="Zip Code"
-                        className={classes.textField}
-                        onChange={this.handleInputChange}
-                        value={zip}
-                        type="number"
-                        fullWidth
-                        required
-                      />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ m: 1 }}>
-                      <TextField
-                        id="phoneNo"
-                        name="phoneNo"
-                        label="Contact Number"
-                        className={classes.textField}
-                        type="number"
-                        onChange={this.handleInputChange}
-                        value={phone}
-                        fullWidth
-                        required
-                      />
-                    </FormControl>
-                  </div>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      style={{ margin: "10px 10px 2px 10px" }}
-                      className={classes.alignLeft}
-                    >
-                      Upload PDF Proof:
-                    </Typography>
-                    <label htmlFor="contained-button-file">
-                      <Input
-                        accept="image/*"
-                        id="contained-button-file"
-                        multiple
-                        type="file"
-                      />
-                      <Button variant="contained" component="span">
-                        Upload
-                      </Button>
-                    </label>
-                  </FormControl>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <TextField
-                      id="password"
-                      name="password"
-                      type="password"
-                      label="Password"
-                      onChange={this.handleInputChange}
-                      value={password}
-                      className={classes.textField}
-                      fullWidth
-                      required
-                    />
-                  </FormControl>
-                  <FormControl fullWidth sx={{ m: 1 }}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="success"
-                      className={classes.button}
-                    >
-                      Sign-up
-                    </Button>
-                  </FormControl>
-                </form>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Box>
-        <Box
-          sx={{
-            width: 500,
-            height: 500,
-          }}
-        ></Box>
-      </Box>
-    );
-  }
+						<div className={classes.address}>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="address"
+									name="address"
+									label="Floor/Apartment Name"
+									className={classes.textField}
+									onChange={this.handleInputChange}
+									value={address}
+									fullWidth
+									required
+								/>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="locality"
+									name="locality"
+									label="Locality"
+									className={classes.textField}
+									onChange={this.handleInputChange}
+									value={locality}
+									fullWidth
+									required
+								/>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="street"
+									name="street"
+									label="Street"
+									className={classes.textField}
+									onChange={this.handleInputChange}
+									value={street}
+									fullWidth
+									required
+								/>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="zipCode"
+									name="zip"
+									label="Zip Code"
+									className={classes.textField}
+									onChange={this.handleInputChange}
+									value={zip}
+									type="number"
+									fullWidth
+									required
+								/>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="phoneNo"
+									name="phoneNo"
+									label="Contact Number"
+									className={classes.textField}
+									type="number"
+									onChange={this.handleInputChange}
+									value={phone}
+									fullWidth
+									required
+								/>
+							</FormControl>
+						</div>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<Typography
+								variant="body2"
+								component="p"
+								style={{ margin: "10px 10px 2px 10px" }}
+								className={classes.alignLeft}
+							>
+								Upload PDF Proof:
+							</Typography>
+							<label htmlFor="contained-button-file">
+								<Input
+									accept="image/*"
+									id="contained-button-file"
+									multiple
+									type="file"
+								/>
+								<Button variant="contained" component="span">
+									Upload
+								</Button>
+							</label>
+						</FormControl>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<TextField
+								id="password"
+								name="password"
+								type="password"
+								label="Password"
+								onChange={this.handleInputChange}
+								value={password}
+								className={classes.textField}
+								fullWidth
+								required
+							/>
+						</FormControl>
+						<FormControl fullWidth sx={{ m: 1 }}>
+							<Button
+								type="submit"
+								variant="contained"
+								color="success"
+								className={classes.button}
+							>
+								Sign-up
+							</Button>
+						</FormControl>
+					</form>
+				</Paper>
+			</Grid>
+			<Grid item sm />
+		</Grid>
+	);
 }
-
-Register.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Register);
