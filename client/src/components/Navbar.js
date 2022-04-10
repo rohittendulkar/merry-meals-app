@@ -12,9 +12,16 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@mui/styles";
 
 // const pages = ["Home", "About", "Blog"];
 // const settings = ["Register", "Login"];
+
+const useStyles = makeStyles((theme) => ({
+	AppBar: {
+		marginBottom: "30px",
+	},
+}));
 
 const ResponsiveAppBar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,8 +42,10 @@ const ResponsiveAppBar = () => {
 		setAnchorElUser(null);
 	};
 
+	const classes = useStyles();
+
 	return (
-		<AppBar position="static">
+		<AppBar className={classes.AppBar} position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
