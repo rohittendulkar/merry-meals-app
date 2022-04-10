@@ -30,10 +30,12 @@ router.post("/", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 
-  await user.save();
-  //   const token = jwt.sign({ _id: user._id }, "jwtPrivateKey");
-
-  res.send(user);
+  try {
+    await user.save();
+    res.status(200).json({ success: true, message: "Register Success" });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
 });
 
 module.exports = router;
