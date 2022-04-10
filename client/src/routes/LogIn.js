@@ -1,79 +1,97 @@
-import React, { Component } from "react";
+import { makeStyles } from "@mui/styles";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../redux/action/userAction";
+import {
+  Button,
+  FormControl,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-class Login extends Component {
-  state = {
-    data: {
-      email: "",
-      password: "",
-    },
-  };
+const useStyles = makeStyles((theme) => ({
+  form: {
+    textAlign: "center",
+  },
+  textField: {
+    margin: 10,
+  },
+  title: {
+    margin: "48px 0px 10px 0px",
+  },
+  alignLeft: {
+    textAlign: "left",
+  },
+  paper: {
+    padding: theme.spacing(2),
+  },
+}));
 
-  handleChange = ({ target: input }) => {
-    const data = { ...this.state.data };
-    data[input.name] = input.value;
-    this.setState({ data });
-  };
+export default function Login() {
+  const classes = useStyles();
 
-  loginUser = async (e) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const loginUser = async (e) => {
     e.preventDefault();
 
-    const { data } = this.state;
-    // await loginUser(data.email, data.password);
-    window.location.href = "/home";
+    let user = { email, password };
+    dispatch(loginAction(user));
   };
 
-  logOut = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("token");
-  };
-
-  render() {
-    const { email, password } = this.state.data;
-
-    return (
-      <div className="container">
-        <div className="row">
-          <br></br>
-          <h1 className="text-center">User Login Form</h1>
-          <br></br>
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <div className="card-body">
-              <form onSubmit={this.loginUser}>
-                <div className="form-group">
-                  <label>Email:</label>
-                  <input
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Password:</label>
-                  <input
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    value={password}
-                    onChange={this.handleChange}
-                  />
-                </div>
-                <br></br>
-                <br></br>
-                <input type="submit" value="Login" />
-                <button onClick={this.logOut} value="Logout">
-                  Log Out
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <Grid container className={classes.form}>
+      <Grid item sm />
+      <Grid item sm>
+        <Paper>
+          <Typography variant="h3" className={classes.title}>
+            Register{" "}
+          </Typography>
+          <br />
+          <form noValidate>
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <TextField
+                id="email"
+                name="firstName"
+                label="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                className={classes.textField}
+                fullWidth
+                required
+              />
+            </FormControl>
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <TextField
+                id="password"
+                name="password"
+                label="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className={classes.textField}
+                fullWidth
+                required
+              />
+            </FormControl>
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <Button
+                variant="contained"
+                color="success"
+                className={classes.button}
+                onClick={loginUser}
+              >
+                Login
+              </Button>
+            </FormControl>
+          </form>
+        </Paper>
+      </Grid>
+      <Grid item sm />
+    </Grid>
+  );
 }
-
-export default Login;
