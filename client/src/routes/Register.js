@@ -23,6 +23,8 @@ import { registerAction } from "../redux/action/userAction";
 const useStyles = makeStyles((theme) => ({
 	form: {
 		textAlign: "center",
+		marginBottom: theme.spacing(10),
+		marginTop: theme.spacing(10),
 	},
 	textField: {
 		margin: 10,
@@ -78,228 +80,230 @@ export default function Register() {
 	};
 
 	return (
-		<Grid container className={classes.form}>
-			<Grid item sm />
-			<Grid item sm>
-				<Paper sx={{ pr: 2 }}>
-					<Typography variant="h3" className={classes.title}>
-						Register{" "}
-						<span role="img" aria-label="Pizza Emoji">
-							🍕
-						</span>
-					</Typography>
-					<br />
-					<form noValidate>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<TextField
-								id="firstName"
-								name="firstName"
-								label="First Name"
-								onChange={(e) => setFirstName(e.target.value)}
-								value={firstName}
-								className={classes.textField}
-								fullWidth
-								required
-							/>
-						</FormControl>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<TextField
-								id="lastName"
-								name="lastName"
-								label="Last Name"
-								onChange={(e) => setLastName(e.target.value)}
-								value={lastName}
-								className={classes.textField}
-								fullWidth
-								required
-							/>
-						</FormControl>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<TextField
-								id="email"
-								name="email"
-								label="Email"
-								onChange={(e) => setEmail(e.target.value)}
-								value={email}
-								className={classes.textField}
-								fullWidth
-								required
-							/>
-						</FormControl>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<FormLabel
-								className={classes.textField}
-								style={{ display: "flex" }}
-							>
-								Gender
-							</FormLabel>
-							<Stack
-								direction="row"
-								alignItems="center"
-								divider={<Divider orientation="vertical" flexItem />}
-								spacing={2}
-							>
-								<FormControl fullWidth sx={{ m: 1 }}>
-									<RadioGroup
-										row
-										name="gender"
-										value={gender}
-										onChange={(e) => setGender(e.target.value)}
-										style={{ marginLeft: "4px" }}
-									>
-										<FormControlLabel
-											value="Male"
-											control={<Radio />}
-											label="Male"
-										/>
-										<FormControlLabel
-											value="Female"
-											control={<Radio />}
-											label="Female"
-										/>
-										<FormControlLabel
-											value="Other"
-											control={<Radio />}
-											label="Other"
-										/>
-									</RadioGroup>
-								</FormControl>
-								<FormControl fullWidth sx={{ m: 1 }}>
-									<LocalizationProvider dateAdapter={AdapterDateFns}>
-										<DatePicker
-											disableFuture
-											mask="__/__/____"
-											openTo="year"
-											views={["year", "month", "day"]}
-											value={birthDate}
-											onChange={(newValue) => {
-												setDate(newValue);
-											}}
-											renderInput={(params) => <TextField {...params} />}
-										/>
-									</LocalizationProvider>
-								</FormControl>
-							</Stack>
-						</FormControl>
-						<Typography
-							variant="body2"
-							component="p"
-							style={{ margin: "10px 10px 2px 10px", textAlign: "left" }}
-						>
-							Address:
+		<div style={{ display: "block" }}>
+			<Grid container className={classes.form}>
+				<Grid item sm />
+				<Grid item sm>
+					<Paper sx={{ pr: 2 }}>
+						<Typography variant="h3" className={classes.title}>
+							Register{" "}
+							<span role="img" aria-label="Pizza Emoji">
+								🍕
+							</span>
 						</Typography>
-
-						<div className={classes.address}>
+						<br />
+						<form noValidate>
 							<FormControl fullWidth sx={{ m: 1 }}>
 								<TextField
-									id="address"
-									name="address"
-									label="Floor/Apartment Name"
+									id="firstName"
+									name="firstName"
+									label="First Name"
+									onChange={(e) => setFirstName(e.target.value)}
+									value={firstName}
 									className={classes.textField}
-									onChange={(e) => setAddress(e.target.value)}
-									value={address}
 									fullWidth
 									required
 								/>
 							</FormControl>
 							<FormControl fullWidth sx={{ m: 1 }}>
 								<TextField
-									id="locality"
-									name="locality"
-									label="Locality"
+									id="lastName"
+									name="lastName"
+									label="Last Name"
+									onChange={(e) => setLastName(e.target.value)}
+									value={lastName}
 									className={classes.textField}
-									onChange={(e) => setLocality(e.target.value)}
-									value={locality}
 									fullWidth
 									required
 								/>
 							</FormControl>
 							<FormControl fullWidth sx={{ m: 1 }}>
 								<TextField
-									id="street"
-									name="street"
-									label="Street"
+									id="email"
+									name="email"
+									label="Email"
+									onChange={(e) => setEmail(e.target.value)}
+									value={email}
 									className={classes.textField}
-									onChange={(e) => setStreet(e.target.value)}
-									value={street}
 									fullWidth
 									required
 								/>
 							</FormControl>
 							<FormControl fullWidth sx={{ m: 1 }}>
-								<TextField
-									id="zipCode"
-									name="zip"
-									label="Zip Code"
+								<FormLabel
 									className={classes.textField}
-									onChange={(e) => setZip(e.target.value)}
-									value={zip}
-									type="number"
-									fullWidth
-									required
-								/>
+									style={{ display: "flex" }}
+								>
+									Gender
+								</FormLabel>
+								<Stack
+									direction="row"
+									alignItems="center"
+									divider={<Divider orientation="vertical" flexItem />}
+									spacing={2}
+								>
+									<FormControl fullWidth sx={{ m: 1 }}>
+										<RadioGroup
+											row
+											name="gender"
+											value={gender}
+											onChange={(e) => setGender(e.target.value)}
+											style={{ marginLeft: "4px" }}
+										>
+											<FormControlLabel
+												value="Male"
+												control={<Radio />}
+												label="Male"
+											/>
+											<FormControlLabel
+												value="Female"
+												control={<Radio />}
+												label="Female"
+											/>
+											<FormControlLabel
+												value="Other"
+												control={<Radio />}
+												label="Other"
+											/>
+										</RadioGroup>
+									</FormControl>
+									<FormControl fullWidth sx={{ m: 1 }}>
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												disableFuture
+												mask="__/__/____"
+												openTo="year"
+												views={["year", "month", "day"]}
+												value={birthDate}
+												onChange={(newValue) => {
+													setDate(newValue);
+												}}
+												renderInput={(params) => <TextField {...params} />}
+											/>
+										</LocalizationProvider>
+									</FormControl>
+								</Stack>
 							</FormControl>
-							<FormControl fullWidth sx={{ m: 1 }}>
-								<TextField
-									id="phoneNo"
-									name="phoneNo"
-									label="Contact Number"
-									className={classes.textField}
-									type="number"
-									onChange={(e) => setPhone(e.target.value)}
-									value={phone}
-									fullWidth
-									required
-								/>
-							</FormControl>
-						</div>
-						<FormControl fullWidth sx={{ m: 1 }}>
 							<Typography
 								variant="body2"
 								component="p"
-								style={{ margin: "10px 10px 2px 10px" }}
-								className={classes.alignLeft}
+								style={{ margin: "10px 10px 2px 10px", textAlign: "left" }}
 							>
-								Upload PDF Proof:
+								Address:
 							</Typography>
-							<label htmlFor="contained-button-file">
-								<input
-									accept="application/pdf"
-									id="contained-button-file"
-									multiple
-									type="file"
-									value={fileUpload}
-									onChange={(e) => setFile(e.target.value)}
+
+							<div className={classes.address}>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<TextField
+										id="address"
+										name="address"
+										label="Floor/Apartment Name"
+										className={classes.textField}
+										onChange={(e) => setAddress(e.target.value)}
+										value={address}
+										fullWidth
+										required
+									/>
+								</FormControl>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<TextField
+										id="locality"
+										name="locality"
+										label="Locality"
+										className={classes.textField}
+										onChange={(e) => setLocality(e.target.value)}
+										value={locality}
+										fullWidth
+										required
+									/>
+								</FormControl>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<TextField
+										id="street"
+										name="street"
+										label="Street"
+										className={classes.textField}
+										onChange={(e) => setStreet(e.target.value)}
+										value={street}
+										fullWidth
+										required
+									/>
+								</FormControl>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<TextField
+										id="zipCode"
+										name="zip"
+										label="Zip Code"
+										className={classes.textField}
+										onChange={(e) => setZip(e.target.value)}
+										value={zip}
+										type="number"
+										fullWidth
+										required
+									/>
+								</FormControl>
+								<FormControl fullWidth sx={{ m: 1 }}>
+									<TextField
+										id="phoneNo"
+										name="phoneNo"
+										label="Contact Number"
+										className={classes.textField}
+										type="number"
+										onChange={(e) => setPhone(e.target.value)}
+										value={phone}
+										fullWidth
+										required
+									/>
+								</FormControl>
+							</div>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<Typography
+									variant="body2"
+									component="p"
+									style={{ margin: "10px 10px 2px 10px" }}
+									className={classes.alignLeft}
+								>
+									Upload PDF Proof:
+								</Typography>
+								<label htmlFor="contained-button-file">
+									<input
+										accept="application/pdf"
+										id="contained-button-file"
+										multiple
+										type="file"
+										value={fileUpload}
+										onChange={(e) => setFile(e.target.value)}
+									/>
+								</label>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="password"
+									name="password"
+									type="password"
+									label="Password"
+									onChange={(e) => setPassword(e.target.value)}
+									value={password}
+									className={classes.textField}
+									fullWidth
+									required
 								/>
-							</label>
-						</FormControl>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<TextField
-								id="password"
-								name="password"
-								type="password"
-								label="Password"
-								onChange={(e) => setPassword(e.target.value)}
-								value={password}
-								className={classes.textField}
-								fullWidth
-								required
-							/>
-						</FormControl>
-						<FormControl fullWidth sx={{ m: 1 }}>
-							<Button
-								variant="contained"
-								color="success"
-								className={classes.button}
-								onClick={register}
-							>
-								Sign-up
-							</Button>
-						</FormControl>
-					</form>
-				</Paper>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<Button
+									variant="contained"
+									color="success"
+									className={classes.button}
+									onClick={register}
+								>
+									Sign-up
+								</Button>
+							</FormControl>
+						</form>
+					</Paper>
+				</Grid>
+				<Grid item sm />
 			</Grid>
-			<Grid item sm />
-		</Grid>
+		</div>
 	);
 }
