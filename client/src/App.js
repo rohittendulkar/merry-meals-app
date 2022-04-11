@@ -1,5 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
 import ResponsiveAppBar from "./components/Navbar";
 import { About, Home, LogIn, Register } from "./imports";
 
@@ -47,6 +48,7 @@ function App() {
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
 				</Routes>
+				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
 	);
