@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import ResponsiveAppBar from "./components/Navbar";
 import { About, Home, LogIn, Register } from "./imports";
+import PartnerRegister from "./routes/PartnerRegister";
 
 const theme = createTheme({
 	palette: {
@@ -44,9 +45,10 @@ function App() {
 				<ResponsiveAppBar />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/register" element={<Register />} />
+					<Route path="/register/member" element={<Register />} />
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
+					<Route path="/register/partner" element={<PartnerRegister />} />
 				</Routes>
 				<Footer />
 			</BrowserRouter>
