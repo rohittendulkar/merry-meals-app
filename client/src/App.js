@@ -1,8 +1,9 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import ResponsiveAppBar from "./components/Navbar";
 import { About, Home, LogIn, Register } from "./imports";
+import PageNotFound from "./routes/PageNotFound";
 import PartnerRegister from "./routes/PartnerRegister";
 
 const theme = createTheme({
@@ -49,7 +50,10 @@ function App() {
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/register/partner" element={<PartnerRegister />} />
+					<Route path="/404-not-found" element={<PageNotFound />} />
+					<Route path="*" element={<Navigate to="/404-not-found" />} />
 				</Routes>
+
 				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
