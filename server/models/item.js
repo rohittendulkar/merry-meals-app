@@ -10,15 +10,12 @@ const itemSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		tags: {
-			type: String,
-		},
-		imageUrl: {
+		category: {
 			type: String,
 			required: true,
 		},
-		price: {
-			type: Number,
+		imageUrl: {
+			type: String,
 			required: true,
 		},
 		creator: {
