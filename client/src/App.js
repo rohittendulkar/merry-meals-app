@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import ResponsiveAppBar from "./components/Navbar";
 import { About, Home, LogIn, Register } from "./imports";
+import Meal from "./routes/Meal";
 import PageNotFound from "./routes/PageNotFound";
 import PartnerRegister from "./routes/PartnerRegister";
 
@@ -49,6 +50,7 @@ function App() {
 					<Route path="/register/member" element={<Register />} />
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
+					<Route path="/meals" element={<Meal />} />
 					<Route path="/register/partner" element={<PartnerRegister />} />
 					<Route path="/404-not-found" element={<PageNotFound />} />
 					<Route path="*" element={<Navigate to="/404-not-found" />} />
