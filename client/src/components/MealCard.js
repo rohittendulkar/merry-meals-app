@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const MealCard = () => {
+const MealCard = ({ item }) => {
 	return (
 		<>
 			<Card sx={{ maxWidth: 345 }}>
@@ -17,22 +17,21 @@ const MealCard = () => {
 					<CardMedia
 						component="img"
 						height="140"
-						image="https://maunikagowardhan.co.uk/wp-content/uploads/2012/08/Tandoori-Chicken1-1024x683.jpg"
-						alt="green iguana"
+						image={item.imageUrl}
+						alt={item.title}
 					/>
 					<CardContent>
 						<Typography gutterBottom variant="h5" component="div">
-							Menu Item
+							{item.title}
 						</Typography>
 						<Typography variant="body2" color="text.secondary">
-							Lizards are a widespread group of squamate reptiles, with over
-							6,000 species, ranging across all continents except Antarctica
+							{item.description}
 						</Typography>
 					</CardContent>
 				</CardActionArea>
 				<CardActions>
 					<Button size="small" color="primary">
-						Share
+						Add to Cart
 					</Button>
 				</CardActions>
 			</Card>
