@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { useSelector } from "react-redux";
+import logo from "../images/merrymeallogo.png";
 
 // const pages = ["Home", "About", "Blog"];
 // const settings = ["Register", "Login"];
@@ -52,6 +53,16 @@ const ResponsiveAppBar = () => {
 		<AppBar className={classes.AppBar} position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
+					<Box
+						component="img"
+						sx={{
+							height: 50,
+							mr: 2,
+							display: { xs: "none", md: "flex" },
+						}}
+						alt="Merry Meal Logo"
+						src={logo}
+					/>
 					<Typography
 						variant="h6"
 						noWrap
