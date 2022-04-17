@@ -15,8 +15,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/action/cartAction";
+
 const MealCard = ({ item }) => {
-	const [qty, setQty] = useState(1);
+	const [quantity, setQuantity] = useState(1);
+	const dispatch = useDispatch();
+
+	const addToCartHandler = () => {
+		dispatch(addToCart(item, quantity));
+	};
 	return (
 		<>
 			<Card sx={{ maxWidth: 345 }}>
@@ -52,8 +60,8 @@ const MealCard = ({ item }) => {
 									<Select
 										labelId="demo-simple-select-autowidth-label"
 										id="demo-simple-select-autowidth"
-										value={qty}
-										onChange={(e) => setQty(e.target.value)}
+										value={quantity}
+										onChange={(e) => setQuantity(e.target.value)}
 										autoWidth
 										label="Qty"
 									>
@@ -69,7 +77,7 @@ const MealCard = ({ item }) => {
 					</CardContent>
 				</CardActionArea>
 				<CardActions>
-					<Button size="small" color="primary">
+					<Button size="small" color="primary" onClick={addToCartHandler}>
 						Add to Cart
 					</Button>
 				</CardActions>

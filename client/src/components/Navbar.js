@@ -13,8 +13,10 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../images/merrymeallogo.png";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { Badge } from "@mui/material";
 
 // const pages = ["Home", "About", "Blog"];
 // const settings = ["Register", "Login"];
@@ -46,7 +48,10 @@ const ResponsiveAppBar = () => {
 
 	const classes = useStyles();
 
+	const dispatch = useDispatch();
+
 	const userState = useSelector((state) => state.loginReducer);
+	const cartState = useSelector((state) => state.cartReducer);
 	const { currentUser } = userState;
 
 	return (
@@ -158,7 +163,14 @@ const ResponsiveAppBar = () => {
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+								{currentUser ? (
+									<Avatar
+										alt={currentUser.user.firstName}
+										src="/static/images/avatar/2.jpg"
+									/>
+								) : (
+									<Avatar alt="User" src="/static/images/avatar/2.jpg" />
+								)}
 							</IconButton>
 						</Tooltip>
 
@@ -230,6 +242,13 @@ const ResponsiveAppBar = () => {
 							</Menu>
 						)}
 					</Box>
+					<Link to="/cart">
+						<Box sx={{ mx: 2 }}>
+							<Badge badgeContent={cartState.cartItems.length} color="error">
+								<ShoppingCartRoundedIcon color="secondary.dark" />
+							</Badge>
+						</Box>
+					</Link>
 				</Toolbar>
 			</Container>
 		</AppBar>
