@@ -36,8 +36,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer() {
 	const classes = useStyles();
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<Grid container className={classes.container}>
+		<Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+			<Grid
+				sx={{
+					py: 3,
+					px: 2,
+					mt: "auto",
+				}}
+				container
+				className={classes.container}
+			>
 				<Grid item xs={12} sm={12} md={3}>
 					<Typography variant="h5" component="p">
 						Partner With Merry Meals
@@ -52,9 +60,9 @@ export default function Footer() {
 							py: 2,
 							color: "white",
 							display: "block",
-							backgroundColor: "#457B9D",
+							backgroundColor: "secondary.main",
 							"&:hover": {
-								backgroundColor: "#1D3557",
+								backgroundColor: "secondary.dark",
 							},
 						}}
 					>
@@ -108,10 +116,6 @@ export default function Footer() {
 						- Shreyas Uttekar <br />
 					</Typography>
 				</Grid>
-
-				{/* <footer className={classes.bg}>
-				<Typography>Footer</Typography>
-			</footer> */}
 			</Grid>
 		</Box>
 	);
