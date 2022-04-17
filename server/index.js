@@ -4,8 +4,9 @@ const cors = require("cors");
 const users = require("./routes/user");
 const auth = require("./routes/auth");
 const item = require("./routes/item");
-
+const partner = require("./routes/partner");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const app = express();
@@ -16,14 +17,15 @@ app.use(express.json());
 app.use("/api/register", users);
 app.use("/api/auth", auth);
 app.use("/api/items", item);
+app.use("/api/partner", partner);
 
 mongoose
-	.connect(
-		`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@merrymealsdb.7hwao.mongodb.net/merry-meals?retryWrites=true&w=majority`
-	)
-	.then(() => console.log("Connected to MongoDB..."))
-	.catch((err) => console.error("Could not connect to MongoDB...", err));
+  .connect(
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@merrymealsdb.7hwao.mongodb.net/merry-meals?retryWrites=true&w=majority`
+  )
+  .then(() => console.log("Connected to MongoDB..."))
+  .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 app.listen(port, () =>
-	console.log(`Merry Meals Server listening on port ${port}!`)
+  console.log(`Merry Meals Server listening on port ${port}!`)
 );

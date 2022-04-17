@@ -64,12 +64,13 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255,
   },
-  fileUpload: {
-    type: String,
-    required: false,
-    minlength: 3,
-    maxlength: 255,
-  },
+  fileUpload: [
+    {
+      type: String,
+      required: false,
+      minlength: 3,
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

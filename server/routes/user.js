@@ -8,52 +8,22 @@ const bcrypt = require("bcrypt");
 router.post("/", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send("User already exists");
-  // const {
-  // 	firstName,
-  // 	lastName,
-  // 	gender,
-  // 	birthDate,
-  // 	address,
-  // 	street,
-  // 	locality,
-  // 	zip,
-  // 	phone,
-  // 	email,
-  // 	password,
-  // 	fileUpload,
-  // } = req.body;
+
   user = new User(
-    _.pick(
-      req.body,
-      [
-        "firstName",
-        "lastName",
-        "gender",
-        "birthDate",
-        "address",
-        "street",
-        "locality",
-        "zip",
-        "phone",
-        "email",
-        "password",
-        "fileUpload",
-      ]
-      // {
-      // 	firstName,
-      // 	lastName,
-      // 	gender,
-      // 	birthDate,
-      // 	address,
-      // 	street,
-      // 	locality,
-      // 	zip,
-      // 	phone,
-      // 	email,
-      // 	password,
-      // 	fileUpload,
-      // }
-    )
+    _.pick(req.body, [
+      "firstName",
+      "lastName",
+      "gender",
+      "birthDate",
+      "address",
+      "street",
+      "locality",
+      "zip",
+      "phone",
+      "email",
+      "password",
+      "files",
+    ])
   );
 
   console.log(user);
