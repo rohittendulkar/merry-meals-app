@@ -38,6 +38,7 @@ export default function Footer() {
 	return (
 		<Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
 			<Grid
+				xs={12}
 				sx={{
 					py: 3,
 					px: 2,
