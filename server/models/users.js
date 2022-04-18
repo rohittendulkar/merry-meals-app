@@ -64,11 +64,10 @@ const userSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255,
   },
-  fileUpload: [
+  proof: [
     {
-      type: String,
+      type: Object,
       required: false,
-      minlength: 3,
     },
   ],
 });

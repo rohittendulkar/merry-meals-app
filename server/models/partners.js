@@ -17,7 +17,6 @@ const partners = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 15,
   },
   address: {
     type: String,
@@ -44,10 +43,12 @@ const partners = new mongoose.Schema({
     required: true,
     maxlength: 500,
   },
-  pictures: {
-    type: String,
-    required: false,
-  },
+  pictures: [
+    {
+      type: Object,
+      required: false,
+    },
+  ],
 });
 
 const Partner = mongoose.model("Partner", partners);

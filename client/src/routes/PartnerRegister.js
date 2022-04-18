@@ -66,7 +66,21 @@ export default function PartnerRegister() {
       partner.append("pictures", pictures[i]);
     }
 
-    console.log(partner.entries());
+    // let partner = {
+    //   partnerName,
+    //   tags,
+    //   email,
+    //   password,
+    //   address,
+    //   street,
+    //   locality,
+    //   zip,
+    //   pictures,
+    //   phone,
+    // };
+
+    console.log(partner.get("pictures"));
+
     dispatch(partnerAction(partner));
   };
 
@@ -80,7 +94,7 @@ export default function PartnerRegister() {
               Register{" "}
             </Typography>
             <br />
-            <form noValidate>
+            <form encType="multipart/form-data" noValidate>
               <FormControl fullWidth sx={{ m: 1 }}>
                 <FormLabel
                   className={classes.textField}
@@ -230,6 +244,7 @@ export default function PartnerRegister() {
                     id="contained-button-file"
                     multiple
                     type="file"
+                    name="pictures"
                     onChange={(e) => setPictures(e.target.files)}
                   />
                 </label>

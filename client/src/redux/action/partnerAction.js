@@ -3,6 +3,7 @@ import axios from "axios";
 export const partnerAction = (partner) => async (dispatch) => {
   dispatch({ type: "PARTNER_REQUEST" });
   try {
+    console.log(partner);
     await axios.post("http://localhost:5000/api/partner/register", partner);
     dispatch({ type: "PARTNER_SUCCESS" });
   } catch (error) {

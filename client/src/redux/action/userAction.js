@@ -18,7 +18,13 @@ export const loginAction = (user) => async (dispatch) => {
     console.log(res);
     dispatch({ type: "LOGIN_SUCCESS", payload: jwtDecode(res.data) });
     localStorage.setItem("currentUser", JSON.stringify(res.data));
+    window.location.href = "/meals";
   } catch (error) {
     dispatch({ type: "LOGIN_FAIL", payload: error });
   }
+};
+
+export const logoutAction = () => {
+  localStorage.removeItem("currentUser");
+  window.location.href = "/login";
 };
