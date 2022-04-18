@@ -62,40 +62,43 @@ const MealCard = ({ item }) => {
 						<Typography variant="body2" color="text.secondary">
 							{item.description}
 						</Typography>
-						<Grid
-							container
-							spacing={3}
-							sx={{ mt: 2 }}
-							justifyContent="space-around"
-							alignItems="center"
-						>
-							<Grid item>
-								<Chip label={item.category} />
-							</Grid>
-							<Grid item>
-								<FormControl sx={{ m: 1, minWidth: 80 }} size="small">
-									<InputLabel id="demo-simple-select-autowidth-label">
-										Qty
-									</InputLabel>
-									<Select
-										labelId="demo-simple-select-autowidth-label"
-										id="demo-simple-select-autowidth"
-										value={quantity}
-										onChange={(e) => setQuantity(e.target.value)}
-										autoWidth
-										label="Qty"
-									>
-										{[...Array(5).keys()].map((val, i) => (
-											<MenuItem sx={{ mx: 2 }} value={i + 1}>
-												{i + 1}
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-							</Grid>
-						</Grid>
 					</CardContent>
 				</CardActionArea>
+				<CardContent>
+					<Grid
+						container
+						spacing={3}
+						sx={{ mt: 2 }}
+						justifyContent="space-around"
+						alignItems="center"
+					>
+						<Grid item>
+							<Chip label={item.category} />
+						</Grid>
+						<Grid item>
+							<FormControl sx={{ m: 1, minWidth: 80 }} size="small">
+								<InputLabel id="demo-simple-select-autowidth-label">
+									Qty
+								</InputLabel>
+								<Select
+									labelId="demo-simple-select-autowidth-label"
+									id="demo-simple-select-autowidth"
+									value={quantity}
+									onChange={(e) => setQuantity(e.target.value)}
+									autoWidth
+									label="Qty"
+								>
+									{[...Array(5).keys()].map((val, i) => (
+										<MenuItem sx={{ mx: 2 }} value={i + 1}>
+											{i + 1}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</Grid>
+					</Grid>
+				</CardContent>
+
 				<CardActions>
 					<Button size="small" color="primary" onClick={addToCartHandler}>
 						Add to Cart
