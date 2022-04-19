@@ -89,7 +89,7 @@ const MealCard = ({ item }) => {
 									label="Qty"
 								>
 									{[...Array(5).keys()].map((val, i) => (
-										<MenuItem sx={{ mx: 2 }} value={i + 1}>
+										<MenuItem key={val} sx={{ mx: 2 }} value={i + 1}>
 											{i + 1}
 										</MenuItem>
 									))}
