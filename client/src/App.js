@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -42,13 +43,19 @@ const theme = createTheme({
 });
 
 function App() {
+	const userState = useSelector((state) => state.loginReducer);
+	const { currentUser } = userState;
+
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<ResponsiveAppBar />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/register/member" element={<Register />} />
+					<Route
+						path="/register/member"
+						element={currentUser ? <Navigate to="/" replace /> : <Register />}
+					/>
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/meals" element={<Meal />} />
