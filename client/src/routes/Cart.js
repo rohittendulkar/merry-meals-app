@@ -1,5 +1,6 @@
 import React from "react";
 import {
+	Button,
 	CardMedia,
 	Chip,
 	Divider,
@@ -8,9 +9,9 @@ import {
 	Paper,
 	Typography,
 } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Delete, Remove, ShoppingCartCheckout } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../redux/action/cartAction";
+import { addToCart, deleteFromCart } from "../redux/action/cartAction";
 const Cart = () => {
 	const cartState = useSelector((state) => state.cartReducer);
 	const { cartItems } = cartState;
@@ -33,9 +34,9 @@ const Cart = () => {
 							<Divider />
 							{cartItems.map((item) => (
 								<Grid item mt={2} pt={2}>
-									<Paper>
-										<Grid container spacing={2}>
-											<Grid item>
+									<Paper elevation={3}>
+										<Grid container spacing={2} justifyContent="space-around">
+											<Grid item m={2}>
 												<CardMedia
 													component="img"
 													sx={{ height: "140px", width: "140px" }}
@@ -43,7 +44,7 @@ const Cart = () => {
 													alt={item.title}
 												/>
 											</Grid>
-											<Grid item>
+											<Grid item m={2}>
 												<Grid
 													container
 													direction="column"
@@ -82,6 +83,17 @@ const Cart = () => {
 													</Grid>
 												</Grid>
 											</Grid>
+											<Grid item m={2} alignSelf="center">
+												<IconButton
+													size="large"
+													color="error"
+													onClick={() => {
+														dispatch(deleteFromCart(item));
+													}}
+												>
+													<Delete />
+												</IconButton>
+											</Grid>
 										</Grid>
 									</Paper>
 								</Grid>
@@ -93,12 +105,21 @@ const Cart = () => {
 					<Paper>
 						<Grid container direction="column" alignItems="center" p={2}>
 							<Grid item>
-								<Typography variant="h3">Donate (Upcoming)</Typography>
+								<Typography variant="h3">Consider Donating?</Typography>
 							</Grid>
 							<Grid item pt={2}>
 								<Typography variant="h6">
 									We need your support to keep on operating
 								</Typography>
+							</Grid>
+							<Grid item pt={2}>
+								<Button
+									variant="contained"
+									color="warning"
+									endIcon={<ShoppingCartCheckout />}
+								>
+									Checkout
+								</Button>
 							</Grid>
 						</Grid>
 					</Paper>
