@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Box,
 	Button,
 	Card,
@@ -14,12 +15,13 @@ import {
 	MenuItem,
 	Modal,
 	Select,
+	Snackbar,
 	Stack,
 	Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../redux/action/cartAction";
 
 const modalStyle = {
@@ -37,13 +39,27 @@ const modalStyle = {
 const MealCard = ({ item }) => {
 	const [quantity, setQuantity] = useState(1);
 
-	const [open, setOpen] = React.useState(false);
+	const [openState, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const dispatch = useDispatch();
 
 	const addToCartHandler = () => {
 		dispatch(addToCart(item, quantity));
+	};
+
+	const userState = useSelector((user) => user.loginReducer);
+	const { currentUser } = userState;
+	const [snackState, setsnackState] = useState({
+		openSnack: true,
+		vertical: "top",
+		horizontal: "left",
+	});
+
+	const { vertical, horizontal, openSnack } = snackState;
+
+	const handleSnack = () => {
+		setsnackState({ ...snackState, openSnack: false });
 	};
 	return (
 		<>
@@ -100,12 +116,34 @@ const MealCard = ({ item }) => {
 				</CardContent>
 
 				<CardActions>
-					<Button size="small" color="primary" onClick={addToCartHandler}>
-						Add to Cart
-					</Button>
+					{!currentUser ? (
+						<>
+							<Snackbar
+								anchorOrigin={{ vertical, horizontal }}
+								open={openSnack}
+								autoHideDuration={6000}
+								onClose={handleSnack}
+							>
+								<Alert
+									onClose={handleSnack}
+									severity="error"
+									sx={{ width: "100%" }}
+								>
+									Login before placing order
+								</Alert>
+							</Snackbar>
+							<Button size="small" color="primary" disabled>
+								Add to Cart
+							</Button>
+						</>
+					) : (
+						<Button size="small" color="primary" onClick={addToCartHandler}>
+							Add to Cart
+						</Button>
+					)}
 				</CardActions>
 			</Card>
-			<Modal open={open} onClose={handleClose}>
+			<Modal open={openState} onClose={handleClose}>
 				<Box sx={modalStyle}>
 					<Stack
 						container
