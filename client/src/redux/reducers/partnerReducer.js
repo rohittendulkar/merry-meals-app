@@ -21,3 +21,40 @@ export const partnerReducer = (state = {}, action) => {
 			return { state };
 	}
 };
+
+export const getAllPartnersReducer = (
+	state = { partners: [], searchResults: [], error: [] },
+	action
+) => {
+	switch (action.type) {
+		case "GET_PARTNERS_REQ":
+			return {
+				...state,
+				loading: true,
+			};
+
+		case "GET_PARTNERS_SUCCESS":
+			return {
+				...state,
+				loading: false,
+				partners: action.payload,
+				searchResults: action.payload,
+			};
+
+		case "GET_PARTNERS_FAIL":
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
+
+		case "SEARCH_PARTNERS":
+			return {
+				...state,
+				partners: action.payload,
+			};
+
+		default:
+			return state;
+	}
+};

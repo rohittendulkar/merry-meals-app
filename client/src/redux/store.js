@@ -2,7 +2,10 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import { registerReducer, loginReducer } from "./reducers/userReducer";
 import { getitemReducer, postitemReducer } from "./reducers/itemReducer";
-import { partnerReducer } from "./reducers/partnerReducer";
+import {
+	partnerReducer,
+	getAllPartnersReducer,
+} from "./reducers/partnerReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
 	placeOrderReducer,
@@ -28,6 +31,7 @@ const rootReducer = combineReducers({
 	partnerReducer,
 	placeOrderReducer,
 	getUserOrderReducer,
+	getAllPartnersReducer,
 });
 
 const initialState = {

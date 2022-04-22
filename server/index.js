@@ -28,7 +28,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/register", users);
 app.use("/api/auth", auth);
 app.use("/api/items", item);
-app.use("/api/partner", partner);
+app.use("/api/partners", partner);
 app.use("/api/orders", orders);
 
 mongoose

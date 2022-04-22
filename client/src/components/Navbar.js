@@ -159,8 +159,15 @@ const ResponsiveAppBar = () => {
 						>
 							Meals
 						</Button>
+						<Button
+							component={Link}
+							to="/restaurants"
+							onClick={handleCloseNavMenu}
+							sx={{ my: 2, color: "white", display: "block" }}
+						>
+							Restaurants
+						</Button>
 					</Box>
-
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
