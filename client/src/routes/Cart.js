@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Button,
 	CardMedia,
@@ -8,16 +8,59 @@ import {
 	IconButton,
 	Paper,
 	Typography,
+	CircularProgress,
+	Snackbar,
+	Alert,
 } from "@mui/material";
 import { Add, Delete, Remove, ShoppingCartCheckout } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, deleteFromCart } from "../redux/action/cartAction";
+import { placeOrder } from "../redux/action/orderAction";
 const Cart = () => {
+	const [snackState, setsnackState] = useState({
+		open: true,
+		vertical: "top",
+		horizontal: "left",
+	});
+	const { vertical, horizontal, open } = snackState;
+	const handleClose = () => {
+		setsnackState({ ...snackState, open: false });
+	};
+
 	const cartState = useSelector((state) => state.cartReducer);
 	const { cartItems } = cartState;
+	const orderstate = useSelector((state) => state.placeOrderReducer);
+	const { loading, error, success } = orderstate;
 	const dispatch = useDispatch();
 	return (
 		<>
+			{error ? (
+				<Snackbar
+					anchorOrigin={{ vertical, horizontal }}
+					open={open}
+					autoHideDuration={6000}
+					onClose={handleClose}
+				>
+					<Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+						Error Placing Order.
+					</Alert>
+				</Snackbar>
+			) : success ? (
+				<Snackbar
+					anchorOrigin={{ vertical, horizontal }}
+					open={open}
+					autoHideDuration={6000}
+					onClose={handleClose}
+				>
+					<Alert
+						onClose={handleClose}
+						severity="success"
+						sx={{ width: "100%" }}
+					>
+						Order Placed Successfully.
+					</Alert>
+				</Snackbar>
+			) : null}
 			<Grid
 				spacing={5}
 				container
@@ -116,9 +159,15 @@ const Cart = () => {
 								<Button
 									variant="contained"
 									color="warning"
-									endIcon={<ShoppingCartCheckout />}
+									endIcon={!loading ? <ShoppingCartCheckout /> : null}
+									onClick={() => {
+										dispatch(placeOrder());
+									}}
 								>
 									Checkout
+									{loading ? (
+										<CircularProgress color="inherit" size={25} />
+									) : null}
 								</Button>
 							</Grid>
 						</Grid>

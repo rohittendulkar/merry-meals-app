@@ -8,6 +8,7 @@ import Cart from "./routes/Cart";
 import Meal from "./routes/Meal";
 import PageNotFound from "./routes/PageNotFound";
 import PartnerRegister from "./routes/PartnerRegister";
+import Orders from "./routes/Orders";
 
 const theme = createTheme({
 	palette: {
@@ -60,6 +61,7 @@ function App() {
 					<Route path="/about" element={<About />} />
 					<Route path="/meals" element={<Meal />} />
 					<Route path="/cart" element={<Cart />} />
+					<Route path="/orders" element={<Orders />} />
 					<Route path="/register/partner" element={<PartnerRegister />} />
 					<Route path="/404-not-found" element={<PageNotFound />} />
 					<Route path="*" element={<Navigate to="/404-not-found" />} />

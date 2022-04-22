@@ -203,6 +203,13 @@ const ResponsiveAppBar = () => {
 								</MenuItem>
 								<MenuItem
 									component={Link}
+									to="/orders"
+									onClick={handleCloseUserMenu}
+								>
+									<Typography textAlign="center">Orders</Typography>
+								</MenuItem>
+								<MenuItem
+									component={Link}
 									to=""
 									onClick={(handleCloseUserMenu, () => dispatch(logoutAction))}
 								>
