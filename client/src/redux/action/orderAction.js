@@ -10,6 +10,7 @@ export const placeOrder = () => async (dispatch, getState) => {
 			{ currentUser, cartItems }
 		);
 		dispatch({ type: "PLACE_ORDER_SUCCESS" });
+		localStorage.removeItem("cartItems");
 		console.log(res);
 	} catch (error) {
 		dispatch({ type: "PLACE_ORDER_FAIL", payload: error });
