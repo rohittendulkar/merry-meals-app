@@ -63,7 +63,7 @@ const Meal = () => {
 						alignItems="center"
 					>
 						{items.map((item) => (
-							<Grid item>
+							<Grid item key={item.title}>
 								<MealCard item={item} />
 							</Grid>
 						))}
