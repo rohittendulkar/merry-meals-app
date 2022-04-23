@@ -76,7 +76,7 @@ const Cart = () => {
 							</Grid>
 							<Divider />
 							{cartItems.map((item) => (
-								<Grid item mt={2} pt={2}>
+								<Grid item mt={2} pt={2} key={item.title}>
 									<Paper elevation={3}>
 										<Grid container spacing={2} justifyContent="space-around">
 											<Grid item m={2}>
