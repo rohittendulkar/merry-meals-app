@@ -176,6 +176,11 @@ const ResponsiveAppBar = () => {
 										alt={currentUser.user.firstName}
 										src="/static/images/avatar/2.jpg"
 									/>
+								) : currentUser && currentUser.partner ? (
+									<Avatar
+										alt={currentUser.partner.partnerName}
+										src="/static/images/avatar/2.jpg"
+									/>
 								) : (
 									<Avatar alt="User" src="/static/images/avatar/2.jpg" />
 								)}
@@ -248,6 +253,13 @@ const ResponsiveAppBar = () => {
 									<Typography textAlign="center">
 										{currentUser.partner.partnerName}
 									</Typography>
+								</MenuItem>
+								<MenuItem
+									component={Link}
+									to="/dashboard"
+									onClick={handleCloseUserMenu}
+								>
+									<Typography textAlign="center">Dashboard</Typography>
 								</MenuItem>
 								<MenuItem
 									component={Link}
