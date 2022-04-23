@@ -11,6 +11,7 @@ export const placeOrder = () => async (dispatch, getState) => {
 		);
 		dispatch({ type: "PLACE_ORDER_SUCCESS" });
 		localStorage.removeItem("cartItems");
+		window.location.href = "/orders";
 		console.log(res);
 	} catch (error) {
 		dispatch({ type: "PLACE_ORDER_FAIL", payload: error });
