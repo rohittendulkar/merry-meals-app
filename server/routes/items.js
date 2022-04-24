@@ -15,7 +15,13 @@ router.get("/getItems", async (req, res) => {
 
 router.post("/postItems", async (req, res) => {
 	let item = new Item(
-		_.pick(req.body, ["title", "description", "category", "imageUrl"])
+		_.pick(req.body, [
+			"title",
+			"description",
+			"category",
+			"imageUrl",
+			"partner",
+		])
 	);
 	console.log(item);
 
@@ -26,4 +32,13 @@ router.post("/postItems", async (req, res) => {
 		res.status(400).json({ message: error });
 	}
 });
+
+router.get("/:id", async (req, res) => {
+	let items = await Item.find({ partner: req.params.id }).select("-__v");
+	console.log(items);
+	if (!items) return res.status(404).send("Items with given ID was not found");
+
+	res.send(items);
+});
+
 module.exports = router;

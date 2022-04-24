@@ -44,7 +44,8 @@ export default function PartnerRegister() {
 	const [street, setStreet] = useState("");
 	const [locality, setLocality] = useState("");
 	const [zip, setZip] = useState("");
-	const [pictures, setPictures] = useState({});
+	const [imageUrl, setImage] = useState("");
+	const [proof, setProof] = useState({});
 	const [phone, setPhone] = useState("");
 
 	const dispatch = useDispatch();
@@ -62,8 +63,9 @@ export default function PartnerRegister() {
 		partner.append("locality", locality);
 		partner.append("zip", zip);
 		partner.append("phone", phone);
-		for (let i = 0; i < pictures.length; i++) {
-			partner.append("pictures", pictures[i]);
+		partner.append("imageUrl", imageUrl);
+		for (let i = 0; i < proof.length; i++) {
+			partner.append("proof", proof[i]);
 		}
 
 		// let partner = {
@@ -244,10 +246,22 @@ export default function PartnerRegister() {
 										id="contained-button-file"
 										multiple
 										type="file"
-										name="pictures"
-										onChange={(e) => setPictures(e.target.files)}
+										name="proof"
+										onChange={(e) => setProof(e.target.files)}
 									/>
 								</label>
+							</FormControl>
+							<FormControl fullWidth sx={{ m: 1 }}>
+								<TextField
+									id="imageUrl"
+									name="imageUrl"
+									label="Image URL"
+									onChange={(e) => setImage(e.target.value)}
+									value={imageUrl}
+									className={classes.textField}
+									fullWidth
+									required
+								/>
 							</FormControl>
 							<FormControl fullWidth sx={{ m: 1 }}>
 								<Button

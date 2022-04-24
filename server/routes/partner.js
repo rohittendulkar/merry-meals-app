@@ -7,7 +7,7 @@ const router = express.Router();
 
 var upload = multer({ storage: partnerStorage });
 
-router.post("/register", upload.array("pictures"), async (req, res, next) => {
+router.post("/register", upload.array("proof"), async (req, res, next) => {
 	let files = [];
 	req.files.forEach((element) => {
 		const file = {
@@ -25,7 +25,8 @@ router.post("/register", upload.array("pictures"), async (req, res, next) => {
 		locality: req.body.locality,
 		zip: req.body.zip,
 		phone: req.body.phone,
-		pictures: files,
+		imageUrl: req.body.imageUrl,
+		proof: files,
 	});
 
 	const salt = await bcrypt.genSalt(10);

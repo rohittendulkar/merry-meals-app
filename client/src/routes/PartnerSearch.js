@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {
 	Container,
@@ -15,7 +9,12 @@ import {
 	Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { getAllPartners, searchPartners } from "../redux/action/partnerAction";
+import {
+	getAllPartners,
+	searchByStreet,
+	searchByLocality,
+} from "../redux/action/partnerAction";
+import PartnerCard from "../components/PartnerCard";
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -40,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const PartnerSearch = () => {
 	const [search, setSearch] = useState("");
 	const { partners } = useSelector((state) => state.getAllPartnersReducer);
+	console.log(partners);
 	const dispatch = useDispatch();
 
 	// const filterPartners = () => {
@@ -51,7 +51,7 @@ const PartnerSearch = () => {
 	// };
 
 	useEffect(() => {
-		if (search) return dispatch(searchPartners(search));
+		if (search) return dispatch(searchByStreet(search));
 
 		dispatch(getAllPartners());
 	}, [dispatch, search]);
@@ -60,53 +60,31 @@ const PartnerSearch = () => {
 	return (
 		<div>
 			<Container maxWidth="xl">
-				<Grid container spacing={2}>
-					<Grid item xs={3}>
-						<Paper variant="outlined" sx={{ p: 1 }}>
-							<Typography variant="h4" className={classes.title}>
-								Filter By
-							</Typography>
-							<FormControl fullWidth sx={{ mt: 2 }}>
-								<TextField
-									name="partnerName"
-									label="Street"
-									onChange={(e) => setSearch(e.target.value)}
-									value={search}
-									className={classes.textField}
-									fullWidth
-								/>
-							</FormControl>
-						</Paper>
-					</Grid>
-					<Grid item xs={9}>
-						<TableContainer component={Paper}>
-							<Table sx={{ minWidth: 650 }} aria-label="simple table">
-								<TableHead>
-									<TableRow>
-										<TableCell>Partner Restaurant</TableCell>
-										<TableCell align="right">Tags</TableCell>
-										<TableCell align="right">Street</TableCell>
-										<TableCell align="right">Locality</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{partners.map((partner) => (
-										<TableRow
-											key={partner._id}
-											sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-										>
-											<TableCell component="th" scope="row">
-												{partner.partnerName}
-											</TableCell>
-											<TableCell align="right">{partner.tags}</TableCell>
-											<TableCell align="right">{partner.street}</TableCell>
-											<TableCell align="right">{partner.locality}</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-						</TableContainer>
-					</Grid>
+				<Typography variant="h4" align="center" component="h4">
+					Search for Restaurants
+				</Typography>
+				<FormControl fullWidth sx={{ m: 2 }}>
+					<TextField
+						name="partnerName"
+						placeholder="Search by restaurant names, street"
+						onChange={(e) => setSearch(e.target.value)}
+						value={search}
+						className={classes.textField}
+						fullWidth
+					/>
+				</FormControl>
+				<Grid
+					container
+					spacing={2}
+					direction="row"
+					justifyContent="center"
+					alignItems="center"
+				>
+					{partners.map((partner) => (
+						<Grid item xs={6} md={3} key={partner._id}>
+							<PartnerCard partner={partner} />
+						</Grid>
+					))}
 				</Grid>
 			</Container>
 		</div>

@@ -22,11 +22,20 @@ export const getAllPartners = () => async (dispatch) => {
 	}
 };
 
-export const searchPartners = (query) => (dispatch, getState) => {
+export const searchByStreet = (query) => (dispatch, getState) => {
 	console.log(query);
 	const { getAllPartnersReducer } = getState();
 	const searchResults = getAllPartnersReducer.searchResults.filter((p) =>
 		p.street.toLowerCase().includes(query.toLowerCase())
+	);
+	dispatch({ type: "SEARCH_PARTNERS", payload: searchResults });
+};
+
+export const searchByLocality = (query) => (dispatch, getState) => {
+	console.log(query);
+	const { getAllPartnersReducer } = getState();
+	const searchResults = getAllPartnersReducer.searchResults.filter((p) =>
+		p.locality.toLowerCase().includes(query.toLowerCase())
 	);
 	dispatch({ type: "SEARCH_PARTNERS", payload: searchResults });
 };
