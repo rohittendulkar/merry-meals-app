@@ -10,6 +10,17 @@ export const getItems = () => async (dispatch) => {
 		dispatch({ type: "GET_ITEM_FAIL", payload: err });
 	}
 };
+
+export const getItemsByPartner = (id) => async (dispatch) => {
+	dispatch({ type: "GET_ITEM_REQUEST" });
+	try {
+		const res = await axios.get(`http://localhost:5000/api/items/${id}`);
+		dispatch({ type: "GET_ITEM_SUCCESS", payload: res.data });
+	} catch (error) {
+		dispatch({ type: "GET_ITEM_FAIL", payload: error });
+	}
+};
+
 export const postItems = () => async (dispatch) => {
 	dispatch({ type: "POST_ITEM_REQUEST" });
 	try {

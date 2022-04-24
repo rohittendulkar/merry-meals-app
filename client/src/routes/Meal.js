@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Alert, CircularProgress, Grid, Snackbar } from "@mui/material";
-import { getItems } from "../redux/action/itemAction";
+import { getItemsByPartner } from "../redux/action/itemAction";
 import { useDispatch, useSelector } from "react-redux";
 import MealCard from "../components/MealCard";
 import { Box } from "@mui/system";
+import { useParams } from "react-router-dom";
 
 const Meal = () => {
 	const dispatch = useDispatch();
+	const { id } = useParams();
 	const itemstate = useSelector((state) => state.getitemReducer);
 	const { loading, items, error } = itemstate;
 	useEffect(() => {
-		dispatch(getItems());
-	}, [dispatch]);
+		dispatch(getItemsByPartner(id));
+	}, [dispatch, id]);
 
 	const [snackState, setsnackState] = useState({
 		open: true,

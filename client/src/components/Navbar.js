@@ -153,14 +153,6 @@ const ResponsiveAppBar = () => {
 						</Button>
 						<Button
 							component={Link}
-							to="/meals"
-							onClick={handleCloseNavMenu}
-							sx={{ my: 2, color: "white", display: "block" }}
-						>
-							Meals
-						</Button>
-						<Button
-							component={Link}
 							to="/restaurants"
 							onClick={handleCloseNavMenu}
 							sx={{ my: 2, color: "white", display: "block" }}

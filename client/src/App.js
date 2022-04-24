@@ -64,7 +64,7 @@ function App() {
 					/>
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
-					<Route path="/meals" element={<Meal />} />
+					{/* <Route path="/meals" element={<Meal />} /> */}
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/orders" element={<Orders />} />
 					<Route path="/dashboard/partner" element={<PartnerDashboard />}>
@@ -74,6 +74,7 @@ function App() {
 					</Route>
 					<Route path="/register/partner" element={<PartnerRegister />} />
 					<Route path="/restaurants" element={<PartnerSearch />} />
+					<Route path="/restaurants/meals/:id" element={<Meal />} />
 					<Route path="/404-not-found" element={<PageNotFound />} />
 					<Route path="*" element={<Navigate to="/404-not-found" />} />
 				</Routes>
