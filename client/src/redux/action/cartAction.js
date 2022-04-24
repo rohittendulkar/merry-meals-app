@@ -5,6 +5,7 @@ export const addToCart = (item, quantity) => (dispatch, getState) => {
 		imageUrl: item.imageUrl,
 		category: item.category,
 		quantity: Number(quantity),
+		partner: item.partner,
 	};
 	if (cartItems.quantity > 5) {
 		alert("Cant add more items than 5");

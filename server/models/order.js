@@ -17,6 +17,10 @@ const orderSchema = mongoose.Schema(
 		userid: {
 			type: String,
 		},
+		partner: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Partner",
+		},
 		orderItems: [],
 		deliveryAddress: {
 			type: Object,

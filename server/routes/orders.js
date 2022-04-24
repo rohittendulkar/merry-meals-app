@@ -10,6 +10,7 @@ router.post("/placeorder", async (req, res) => {
 			lastname: currentUser.user.lastName,
 			email: currentUser.user.email,
 			userid: currentUser.user._id,
+			partner: cartItems[0].partner,
 			orderItems: cartItems,
 			deliveryAddress: {
 				address: currentUser.user.address,
