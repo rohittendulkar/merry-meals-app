@@ -30,12 +30,3 @@ export const searchByStreet = (query) => (dispatch, getState) => {
 	);
 	dispatch({ type: "SEARCH_PARTNERS", payload: searchResults });
 };
-
-export const searchByLocality = (query) => (dispatch, getState) => {
-	console.log(query);
-	const { getAllPartnersReducer } = getState();
-	const searchResults = getAllPartnersReducer.searchResults.filter((p) =>
-		p.locality.toLowerCase().includes(query.toLowerCase())
-	);
-	dispatch({ type: "SEARCH_PARTNERS", payload: searchResults });
-};

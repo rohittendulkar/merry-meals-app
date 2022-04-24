@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Paper from "@mui/material/Paper";
+
 import {
 	Container,
 	FormControl,
@@ -9,11 +9,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import {
-	getAllPartners,
-	searchByStreet,
-	searchByLocality,
-} from "../redux/action/partnerAction";
+import { getAllPartners, searchByStreet } from "../redux/action/partnerAction";
 import PartnerCard from "../components/PartnerCard";
 
 const useStyles = makeStyles((theme) => ({
