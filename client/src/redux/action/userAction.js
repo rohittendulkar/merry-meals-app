@@ -6,6 +6,7 @@ export const registerAction = (user) => async (dispatch) => {
 	try {
 		await axios.post("http://localhost:5000/api/register", user);
 		dispatch({ type: "REGISTER_SUCCESS" });
+		window.location.href = "/login";
 	} catch (error) {
 		dispatch({ type: "REGISTER_FAIL", payload: error });
 	}
@@ -26,6 +27,5 @@ export const loginAction = (user) => async (dispatch) => {
 
 export const logoutAction = () => {
 	localStorage.removeItem("currentUser");
-	window.location.reload();
 	window.location.href = "/login";
 };

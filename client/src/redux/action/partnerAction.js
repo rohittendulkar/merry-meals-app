@@ -6,6 +6,7 @@ export const partnerAction = (partner) => async (dispatch) => {
 		console.log(partner);
 		await axios.post("http://localhost:5000/api/partners/register", partner);
 		dispatch({ type: "PARTNER_SUCCESS" });
+		window.location.href = "/login";
 	} catch (error) {
 		dispatch({ type: "PARTNER_FAIL", payload: error });
 	}

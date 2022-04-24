@@ -61,21 +61,6 @@ export default function Register() {
 	const register = async (e) => {
 		e.preventDefault();
 
-		// let user = {
-		//   firstName,
-		//   lastName,
-		//   gender,
-		//   birthDate,
-		//   email,
-		//   password,
-		//   address,
-		//   street,
-		//   locality,
-		//   zip,
-		//   phone,
-		//   fileUpload,
-		// };
-
 		let user = new FormData();
 
 		user.append("firstName", firstName);

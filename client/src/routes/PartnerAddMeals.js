@@ -40,19 +40,29 @@ const PartnerAddMeals = () => {
 
 	const dispatch = useDispatch();
 	const partnerState = useSelector((state) => state.loginReducer.currentUser);
-	const { partner } = partnerState;
+	const { partner: partnerData } = partnerState;
+
+	const partner = partnerData._id;
 
 	const addMeal = async (e) => {
 		e.preventDefault();
-		let meal = new FormData();
+		// let meal = new FormData();
 
-		meal.append("title", title);
-		meal.append("description", description);
-		meal.append("category", category);
-		meal.append("imageUrl", imageUrl);
-		meal.append("partner", partner._id);
+		// meal.append("title", title);
+		// meal.append("description", description);
+		// meal.append("category", category);
+		// meal.append("imageUrl", imageUrl);
+		// meal.append("partner", partner._id);
 
-		console.log(meal.get("partner"));
+		// console.log(meal.get("partner"));
+
+		let meal = {
+			title,
+			description,
+			category,
+			imageUrl,
+			partner,
+		};
 		dispatch(postItems(meal));
 	};
 
@@ -65,7 +75,7 @@ const PartnerAddMeals = () => {
 							Add New Meal
 						</Typography>
 						<br />
-						<form encType="multipart/form-data" noValidate>
+						<form noValidate>
 							<FormControl fullWidth sx={{ m: 1 }}>
 								<TextField
 									id="title"
