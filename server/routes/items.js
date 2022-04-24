@@ -14,15 +14,14 @@ router.get("/getItems", async (req, res) => {
 });
 
 router.post("/postItems", async (req, res) => {
-	let item = new Item(
-		_.pick(req.body, [
-			"title",
-			"description",
-			"category",
-			"imageUrl",
-			"partner",
-		])
-	);
+	console.log(req.body);
+	let item = new Item({
+		title: req.body.title,
+		description: req.body.description,
+		category: req.body.category,
+		imageUrl: req.body.imageUrl,
+		partner: req.body.partner,
+	});
 	console.log(item);
 
 	try {

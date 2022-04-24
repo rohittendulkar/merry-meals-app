@@ -8,8 +8,8 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { partnerAction } from "../redux/action/partnerAction";
+import { useDispatch, useSelector } from "react-redux";
+import { postItems } from "../redux/action/itemAction";
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -39,17 +39,21 @@ const PartnerAddMeals = () => {
 	const [imageUrl, setImageUrl] = useState("");
 
 	const dispatch = useDispatch();
+	const partnerState = useSelector((state) => state.loginReducer.currentUser);
+	const { partner } = partnerState;
 
-	const register = async (e) => {
+	const addMeal = async (e) => {
 		e.preventDefault();
-		let partner = new FormData();
+		let meal = new FormData();
 
-		partner.append("title", title);
-		partner.append("description", description);
-		partner.append("category", category);
-		partner.append("imageUrl", imageUrl);
+		meal.append("title", title);
+		meal.append("description", description);
+		meal.append("category", category);
+		meal.append("imageUrl", imageUrl);
+		meal.append("partner", partner._id);
 
-		dispatch(partnerAction(partner));
+		console.log(meal.get("partner"));
+		dispatch(postItems(meal));
 	};
 
 	return (
@@ -115,7 +119,7 @@ const PartnerAddMeals = () => {
 									variant="contained"
 									color="success"
 									className={classes.button}
-									onClick={register}
+									onClick={addMeal}
 								>
 									Add Meal
 								</Button>
