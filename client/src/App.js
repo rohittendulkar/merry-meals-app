@@ -9,7 +9,11 @@ import Meal from "./routes/Meal";
 import PageNotFound from "./routes/PageNotFound";
 import PartnerRegister from "./routes/PartnerRegister";
 import PartnerSearch from "./routes/PartnerSearch";
+import PartnerDashboard from "./routes/PartnerDashboard";
 import Orders from "./routes/Orders";
+import PartnerAddMeals from "./routes/PartnerAddMeals";
+import PartnerMeals from "./routes/PartnerMeals";
+import PartnerOrders from "./routes/PartnerOrders";
 
 const theme = createTheme({
 	palette: {
@@ -63,6 +67,11 @@ function App() {
 					<Route path="/meals" element={<Meal />} />
 					<Route path="/cart" element={<Cart />} />
 					<Route path="/orders" element={<Orders />} />
+					<Route path="/dashboard/partner" element={<PartnerDashboard />}>
+						<Route path="addmeal" element={<PartnerAddMeals />} />
+						<Route path="meals" element={<PartnerMeals />} />
+						<Route path="orders" element={<PartnerOrders />} />
+					</Route>
 					<Route path="/register/partner" element={<PartnerRegister />} />
 					<Route path="/restaurants" element={<PartnerSearch />} />
 					<Route path="/404-not-found" element={<PageNotFound />} />
