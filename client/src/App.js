@@ -14,6 +14,11 @@ import Orders from "./routes/Orders";
 import PartnerAddMeals from "./routes/PartnerAddMeals";
 import PartnerMeals from "./routes/PartnerMeals";
 import PartnerOrders from "./routes/PartnerOrders";
+import AdminScreen from "./routes/AdminScreen";
+import DeliveryDashboard from "./components/Admin/DeliveryDashboard";
+import FoodSafetyDashboard from "./components/Admin/FoodSafetyDashboard";
+import MenuDashboard from "./components/Admin/MenuDashboard";
+import UserDashboard from "./components/Admin/UserDashboard";
 
 const theme = createTheme({
 	palette: {
@@ -75,6 +80,19 @@ function App() {
 					<Route path="/register/partner" element={<PartnerRegister />} />
 					<Route path="/restaurants" element={<PartnerSearch />} />
 					<Route path="/restaurants/meals/:id" element={<Meal />} />
+					<Route path="/admin" element={<AdminScreen />}>
+						<Route
+							path="/admin/deliverydashboard"
+							element={<DeliveryDashboard />}
+						/>
+						<Route
+							path="/admin/foodsafetydashboard"
+							element={<FoodSafetyDashboard />}
+						/>
+						<Route path="/admin/menudashboard" element={<MenuDashboard />} />
+						<Route path="/admin/userdashboard" element={<UserDashboard />} />
+					</Route>
+
 					<Route path="/404-not-found" element={<PageNotFound />} />
 					<Route path="*" element={<Navigate to="/404-not-found" />} />
 				</Routes>
