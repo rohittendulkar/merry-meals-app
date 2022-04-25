@@ -69,7 +69,7 @@ function App() {
 					<Route path="/orders" element={<Orders />} />
 					<Route path="/dashboard/partner" element={<PartnerDashboard />}>
 						<Route path="addmeal" element={<PartnerAddMeals />} />
-						<Route path="meals" element={<PartnerMeals />} />
+						<Route path="meals/:id" element={<PartnerMeals />} />
 						<Route path="orders" element={<PartnerOrders />} />
 					</Route>
 					<Route path="/register/partner" element={<PartnerRegister />} />

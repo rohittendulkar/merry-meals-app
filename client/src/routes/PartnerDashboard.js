@@ -11,8 +11,13 @@ import {
 import { Fastfood, Restaurant, RestaurantMenu } from "@mui/icons-material";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PartnerDashboard = () => {
+	const { _id } = useSelector(
+		(state) => state.loginReducer.currentUser.partner
+	);
+
 	return (
 		<>
 			<Typography textAlign="center" variant="h3">
@@ -28,7 +33,7 @@ const PartnerDashboard = () => {
 								<ListItem disablePadding>
 									<ListItemButton
 										component={Link}
-										to="/dashboard/partner/meals"
+										to={`/dashboard/partner/meals/${_id}`}
 									>
 										<ListItemIcon>
 											<RestaurantMenu />

@@ -14,14 +14,16 @@ import {
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../redux/action/itemAction";
+import { useParams } from "react-router-dom";
+import { getItemsByPartner } from "../redux/action/itemAction";
 
 const PartnerMeals = () => {
+	const { id } = useParams();
 	const { items } = useSelector((state) => state.getitemReducer);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getItems());
-	}, [dispatch]);
+		dispatch(getItemsByPartner(id));
+	}, [dispatch, id]);
 	return (
 		<>
 			<TableContainer sx={{ width: "900px" }} component={Paper}>

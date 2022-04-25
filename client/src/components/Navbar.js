@@ -248,7 +248,7 @@ const ResponsiveAppBar = () => {
 								</MenuItem>
 								<MenuItem
 									component={Link}
-									to="/dashboard/partner/meals"
+									to={`/dashboard/partner/meals/${currentUser.partner._id}`}
 									onClick={handleCloseUserMenu}
 								>
 									<Typography textAlign="center">Dashboard</Typography>
