@@ -39,12 +39,6 @@ export default function Login() {
 
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (localStorage.getItem("currentUser")) {
-			window.location.href = "/";
-		}
-	});
-
 	const loginUser = async (e) => {
 		e.preventDefault();
 

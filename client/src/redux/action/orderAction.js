@@ -34,3 +34,30 @@ export const getUserOrders = () => async (dispatch, getState) => {
 		dispatch({ type: "USER_ORDER_FAIL", payload: error });
 	}
 };
+
+export const getOrdersByPartner = (id) => async (dispatch) => {
+	dispatch({ type: "GET_ORDER_REQUEST" });
+	try {
+		const res = await axios.get(`http://localhost:5000/api/orders/${id}`);
+		dispatch({ type: "GET_ORDER_SUCCESS", payload: res.data });
+	} catch (error) {
+		dispatch({ type: "GET_ORDER_FAIL", payload: error });
+	}
+};
+
+export const deliverOrder = (orderid, id) => async (dispatch, getState) => {
+	dispatch({
+		type: "GET_ALL_ORDER_REQUEST",
+	});
+	try {
+		await axios.post("http://localhost:5000/api/orders/deliverorder", {
+			orderid,
+		});
+		alert("Delivered Successfully");
+		const orders = await axios.get(`http://localhost:5000/api/orders/${id}`);
+		dispatch({ type: "GET_ALL_ORDER_SUCCESS", payload: orders.data });
+		window.location.reload();
+	} catch (error) {
+		dispatch({ type: "GET_ALL_ORDER_FAIL", payload: error });
+	}
+};

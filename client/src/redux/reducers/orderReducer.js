@@ -42,3 +42,28 @@ export const getUserOrderReducer = (state = { orders: [] }, action) => {
 			return state;
 	}
 };
+
+export const getOrderByPartnerReducer = (
+	state = { orders: [], error: [] },
+	action
+) => {
+	switch (action.type) {
+		case "GET_ORDER_REQUEST":
+			return {
+				...state,
+				loading: true,
+			};
+		case "GET_ORDER_SUCCESS":
+			return {
+				orders: action.payload,
+				loading: false,
+			};
+		case "GET_ORDER_FAIL":
+			return {
+				error: action.payload,
+				loading: false,
+			};
+		default:
+			return state;
+	}
+};

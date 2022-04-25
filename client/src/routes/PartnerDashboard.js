@@ -55,7 +55,7 @@ const PartnerDashboard = () => {
 								<ListItem disablePadding>
 									<ListItemButton
 										component={Link}
-										to="/dashboard/partner/orders"
+										to={`/dashboard/partner/orders/${_id}`}
 									>
 										<ListItemIcon>
 											<Restaurant />

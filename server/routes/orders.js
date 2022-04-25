@@ -43,4 +43,26 @@ router.post("/getuserorders", async (req, res) => {
 	}
 });
 
+router.get("/:id", async (req, res) => {
+	let orders = await Orders.find({ partner: req.params.id }).select("-__v");
+	console.log(req.params.id);
+	if (!orders) return res.status(404).send("Order with given ID was not found");
+
+	res.send(orders);
+});
+
+router.post("/deliverorder", async (req, res) => {
+	const orderid = req.body.orderid;
+	try {
+		const order = await Orders.findOne({ _id: orderid });
+		order.isDelivered = true;
+		await order.save();
+		res.status(200).send("Order delivered successfully");
+	} catch (error) {
+		res.status(400).json({
+			message: "Something Went Wrong",
+			error: error.stack,
+		});
+	}
+});
 module.exports = router;

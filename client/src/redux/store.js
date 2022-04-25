@@ -10,6 +10,7 @@ import { cartReducer } from "./reducers/cartReducer";
 import {
 	placeOrderReducer,
 	getUserOrderReducer,
+	getOrderByPartnerReducer,
 } from "./reducers/orderReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import jwtDecode from "jwt-decode";
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
 	placeOrderReducer,
 	getUserOrderReducer,
 	getAllPartnersReducer,
+	getOrderByPartnerReducer,
 });
 
 const initialState = {
