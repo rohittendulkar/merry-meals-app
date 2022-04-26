@@ -27,6 +27,7 @@ export const postItems = (meal) => async (dispatch) => {
 		console.log(meal);
 		await axios.post("http://localhost:5000/api/items/postItems", meal);
 		dispatch({ type: "POST_ITEM_SUCCESS" });
+		window.location.href = `/dashboard/partner/meals/${meal.partner}`;
 	} catch (err) {
 		dispatch({ type: "POST_ITEM_FAIL", payload: err });
 	}
