@@ -92,27 +92,29 @@ const MealCard = ({ item }) => {
 						<Grid item>
 							<Chip label={item.category} />
 						</Grid>
-						<Grid item>
-							<FormControl sx={{ m: 1, minWidth: 80 }} size="small">
-								<InputLabel id="demo-simple-select-autowidth-label">
-									Qty
-								</InputLabel>
-								<Select
-									labelId="demo-simple-select-autowidth-label"
-									id="demo-simple-select-autowidth"
-									value={quantity}
-									onChange={(e) => setQuantity(e.target.value)}
-									autoWidth
-									label="Qty"
-								>
-									{[...Array(5).keys()].map((val, i) => (
-										<MenuItem key={val} sx={{ mx: 2 }} value={i + 1}>
-											{i + 1}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						</Grid>
+						{currentUser.user && (
+							<Grid item>
+								<FormControl sx={{ m: 1, minWidth: 80 }} size="small">
+									<InputLabel id="demo-simple-select-autowidth-label">
+										Qty
+									</InputLabel>
+									<Select
+										labelId="demo-simple-select-autowidth-label"
+										id="demo-simple-select-autowidth"
+										value={quantity}
+										onChange={(e) => setQuantity(e.target.value)}
+										autoWidth
+										label="Qty"
+									>
+										{[...Array(5).keys()].map((val, i) => (
+											<MenuItem key={val} sx={{ mx: 2 }} value={i + 1}>
+												{i + 1}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
+							</Grid>
+						)}
 					</Grid>
 				</CardContent>
 
@@ -133,9 +135,23 @@ const MealCard = ({ item }) => {
 									Login before placing order
 								</Alert>
 							</Snackbar>
-							<Button size="small" color="primary" disabled>
-								Add to Cart
-							</Button>
+						</>
+					) : !currentUser.user ? (
+						<>
+							<Snackbar
+								anchorOrigin={{ vertical, horizontal }}
+								open={openSnack}
+								autoHideDuration={6000}
+								onClose={handleSnack}
+							>
+								<Alert
+									onClose={handleSnack}
+									severity="error"
+									sx={{ width: "100%" }}
+								>
+									Partners cannot place an Order
+								</Alert>
+							</Snackbar>
 						</>
 					) : (
 						<Button size="small" color="primary" onClick={addToCartHandler}>
