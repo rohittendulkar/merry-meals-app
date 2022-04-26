@@ -51,6 +51,20 @@ router.get("/:id", async (req, res) => {
 	res.send(orders);
 });
 
+router.post("/ordersafety", async (req, res) => {
+	const orderid = req.body.orderid;
+	try {
+		const order = await Orders.findOne({ _id: orderid });
+		order.checkedForSafety = true;
+		await order.save();
+		res.status(200).send("Order checked for safety");
+	} catch (error) {
+		res.status(400).json({
+			message: "Something Went Wrong",
+			error: error.stack,
+		});
+	}
+});
 router.post("/deliverorder", async (req, res) => {
 	const orderid = req.body.orderid;
 	try {

@@ -45,6 +45,22 @@ export const getOrdersByPartner = (id) => async (dispatch) => {
 	}
 };
 
+export const orderSafety = (orderid, id) => async (dispatch, getState) => {
+	dispatch({
+		type: "GET_ALL_ORDER_REQUEST",
+	});
+	try {
+		await axios.post("http://localhost:5000/api/orders/ordersafety", {
+			orderid,
+		});
+		alert("Order Checked for Safety");
+		const orders = await axios.get(`http://localhost:5000/api/orders/${id}`);
+		dispatch({ type: "GET_ALL_ORDER_SUCCESS", payload: orders.data });
+		window.location.reload();
+	} catch (error) {
+		dispatch({ type: "GET_ALL_ORDER_FAIL", payload: error });
+	}
+};
 export const deliverOrder = (orderid, id) => async (dispatch, getState) => {
 	dispatch({
 		type: "GET_ALL_ORDER_REQUEST",
