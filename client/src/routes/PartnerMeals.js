@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Delete, Edit } from "@mui/icons-material";
 import {
 	Box,
@@ -11,19 +12,38 @@ import {
 	TableHead,
 	TableRow,
 } from "@mui/material";
-
-import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getItemsByPartner } from "../redux/action/itemAction";
+import {
+	deleteItemById,
+	getItemById,
+	getItemsByPartner,
+} from "../redux/action/itemAction";
+import MealPopup from "../components/MealPopup";
 
 const PartnerMeals = () => {
-	const { id } = useParams();
+	const [open, setOpen] = useState(false);
+	const handleOpen = (id) => {
+		dispatch(getItemById(id));
+		setOpen(true);
+	};
+	const handleClose = () => setOpen(false);
+
+	const { id: partnerId } = useParams();
 	const { items } = useSelector((state) => state.getitemReducer);
+
+	const { item } = useSelector((state) => state.getitemByIdReducer);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getItemsByPartner(id));
-	}, [dispatch, id]);
+		dispatch(getItemsByPartner(partnerId));
+	}, [dispatch, partnerId]);
+
+	const deleteItem = (id) => {
+		dispatch(deleteItemById(id));
+		items.filter((item) => item._id !== id);
+	};
+
 	return (
 		<>
 			<TableContainer sx={{ width: "900px" }} component={Paper}>
@@ -52,13 +72,21 @@ const PartnerMeals = () => {
 								<TableCell align="center">
 									<Stack direction="row">
 										<Box sx={{ mx: 2 }}>
-											<IconButton size="large" sx={{ color: "#1D3557" }}>
+											<IconButton
+												size="large"
+												onClick={() => handleOpen(item._id)}
+												sx={{ color: "#1D3557" }}
+											>
 												<Edit />
 											</IconButton>
 										</Box>
 
 										<Box sx={{ mx: 2 }}>
-											<IconButton size="large" color="error">
+											<IconButton
+												size="large"
+												onClick={() => deleteItem(item._id)}
+												color="error"
+											>
 												<Delete />
 											</IconButton>
 										</Box>
@@ -69,6 +97,12 @@ const PartnerMeals = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
+			<MealPopup
+				open={open}
+				handleClose={handleClose}
+				partner={partnerId}
+				item={item}
+			/>
 		</>
 	);
 };

@@ -1,7 +1,12 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import { registerReducer, loginReducer } from "./reducers/userReducer";
-import { getitemReducer, postitemReducer } from "./reducers/itemReducer";
+import {
+	getitemReducer,
+	postitemReducer,
+	getitemByIdReducer,
+	deleteItemByIdReducer,
+} from "./reducers/itemReducer";
 import {
 	partnerReducer,
 	getAllPartnersReducer,
@@ -34,6 +39,8 @@ const rootReducer = combineReducers({
 	getUserOrderReducer,
 	getAllPartnersReducer,
 	getOrderByPartnerReducer,
+	getitemByIdReducer,
+	deleteItemByIdReducer,
 });
 
 const initialState = {
