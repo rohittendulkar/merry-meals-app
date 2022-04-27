@@ -18,11 +18,11 @@ const itemSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		/* creator: {
-			type: Schema.Types.ObjectId,
+		partner: {
+			type: mongoose.Schema.Types.ObjectId,
 			ref: "Partner",
 			required: true,
-		}, */
+		},
 	},
 	{
 		timestamps: true,

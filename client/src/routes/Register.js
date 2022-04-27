@@ -53,7 +53,7 @@ export default function Register() {
 	const [street, setStreet] = useState("");
 	const [locality, setLocality] = useState("");
 	const [zip, setZip] = useState("");
-	const [fileUpload, setFile] = useState("");
+	const [proof, setProof] = useState({});
 	const [phone, setPhone] = useState("");
 
 	const dispatch = useDispatch();
@@ -61,20 +61,22 @@ export default function Register() {
 	const register = async (e) => {
 		e.preventDefault();
 
-		let user = {
-			firstName,
-			lastName,
-			gender,
-			birthDate,
-			email,
-			password,
-			address,
-			street,
-			locality,
-			zip,
-			phone,
-			fileUpload,
-		};
+		let user = new FormData();
+
+		user.append("firstName", firstName);
+		user.append("lastName", lastName);
+		user.append("gender", gender);
+		user.append("birthDate", birthDate);
+		user.append("email", email);
+		user.append("password", password);
+		user.append("address", address);
+		user.append("street", street);
+		user.append("locality", locality);
+		user.append("zip", zip);
+		user.append("phone", phone);
+		for (let i = 0; i < proof.length; i++) {
+			user.append("proof", proof[i]);
+		}
 
 		dispatch(registerAction(user));
 	};
@@ -297,10 +299,10 @@ export default function Register() {
 										<input
 											accept="application/pdf"
 											id="contained-button-file"
+											name="proof"
 											multiple
 											type="file"
-											value={fileUpload}
-											onChange={(e) => setFile(e.target.value)}
+											onChange={(e) => setProof(e.target.files)}
 										/>
 									</label>
 								</FormControl>

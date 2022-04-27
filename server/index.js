@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const users = require("./routes/user");
 const auth = require("./routes/auth");
-const item = require("./routes/item");
-
+const item = require("./routes/items");
+const orders = require("./routes/orders");
+const partner = require("./routes/partner");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
+
 dotenv.config();
 
 const app = express();
@@ -13,9 +16,20 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: false,
+	})
+);
+
+app.use("/uploads", express.static("uploads"));
+
 app.use("/api/register", users);
 app.use("/api/auth", auth);
 app.use("/api/items", item);
+app.use("/api/partners", partner);
+app.use("/api/orders", orders);
 
 mongoose
 	.connect(

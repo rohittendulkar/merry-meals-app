@@ -1,60 +1,57 @@
 const express = require("express");
 const _ = require("lodash");
 const { User } = require("../models/users");
+const { userStorage } = require("../multer-config");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const multer = require("multer");
 // const jwt = require("jsonwebtoken");
 
-router.post("/", async (req, res) => {
+var upload = multer({ storage: userStorage });
+
+router.post("/", upload.array("proof"), async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) return res.status(400).send("User already exists");
-  // const {
-  // 	firstName,
-  // 	lastName,
-  // 	gender,
-  // 	birthDate,
-  // 	address,
-  // 	street,
-  // 	locality,
-  // 	zip,
-  // 	phone,
-  // 	email,
-  // 	password,
-  // 	fileUpload,
-  // } = req.body;
-  user = new User(
-    _.pick(
-      req.body,
-      [
-        "firstName",
-        "lastName",
-        "gender",
-        "birthDate",
-        "address",
-        "street",
-        "locality",
-        "zip",
-        "phone",
-        "email",
-        "password",
-        "fileUpload",
-      ]
-      // {
-      // 	firstName,
-      // 	lastName,
-      // 	gender,
-      // 	birthDate,
-      // 	address,
-      // 	street,
-      // 	locality,
-      // 	zip,
-      // 	phone,
-      // 	email,
-      // 	password,
-      // 	fileUpload,
-      // }
-    )
-  );
+
+  // user = new User(
+  //   _.pick(req.body, [
+  //     "firstName",
+  //     "lastName",
+  //     "gender",
+  //     "birthDate",
+  //     "address",
+  //     "street",
+  //     "locality",
+  //     "zip",
+  //     "phone",
+  //     "email",
+  //     "password",
+  //     "files",
+  //   ])
+  // );
+
+  let files = [];
+  req.files.forEach((element) => {
+    const file = {
+      fileName: element.originalname,
+    };
+    files.push(file);
+  });
+
+  user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    gender: req.body.gender,
+    birthDate: req.body.birthDate,
+    email: req.body.email,
+    password: req.body.password,
+    address: req.body.address,
+    street: req.body.street,
+    locality: req.body.locality,
+    zip: req.body.zip,
+    phone: req.body.phone,
+    proof: files,
+  });
 
   console.log(user);
 

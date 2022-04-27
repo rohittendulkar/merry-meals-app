@@ -1,11 +1,24 @@
+import { useSelector } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import ResponsiveAppBar from "./components/Navbar";
 import { About, Home, LogIn, Register } from "./imports";
+import Cart from "./routes/Cart";
 import Meal from "./routes/Meal";
 import PageNotFound from "./routes/PageNotFound";
 import PartnerRegister from "./routes/PartnerRegister";
+import PartnerSearch from "./routes/PartnerSearch";
+import PartnerDashboard from "./routes/PartnerDashboard";
+import Orders from "./routes/Orders";
+import PartnerAddMeals from "./routes/PartnerAddMeals";
+import PartnerMeals from "./routes/PartnerMeals";
+import PartnerOrders from "./routes/PartnerOrders";
+import AdminScreen from "./routes/AdminScreen";
+import DeliveryDashboard from "./components/Admin/DeliveryDashboard";
+import FoodSafetyDashboard from "./components/Admin/FoodSafetyDashboard";
+import MenuDashboard from "./components/Admin/MenuDashboard";
+import UserDashboard from "./components/Admin/UserDashboard";
 
 const theme = createTheme({
 	palette: {
@@ -41,17 +54,45 @@ const theme = createTheme({
 });
 
 function App() {
+	const userState = useSelector((state) => state.loginReducer);
+	const { currentUser } = userState;
+
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<ResponsiveAppBar />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/register/member" element={<Register />} />
+					<Route
+						path="/register/member"
+						element={currentUser ? <Navigate to="/" replace /> : <Register />}
+					/>
 					<Route path="/login" element={<LogIn />} />
 					<Route path="/about" element={<About />} />
-					<Route path="/meals" element={<Meal />} />
+					{/* <Route path="/meals" element={<Meal />} /> */}
+					<Route path="/cart" element={<Cart />} />
+					<Route path="/orders" element={<Orders />} />
+					<Route path="/dashboard/partner" element={<PartnerDashboard />}>
+						<Route path="addmeal" element={<PartnerAddMeals />} />
+						<Route path="meals/:id" element={<PartnerMeals />} />
+						<Route path="orders/:id" element={<PartnerOrders />} />
+					</Route>
 					<Route path="/register/partner" element={<PartnerRegister />} />
+					<Route path="/restaurants" element={<PartnerSearch />} />
+					<Route path="/restaurants/meals/:id" element={<Meal />} />
+					<Route path="/admin" element={<AdminScreen />}>
+						<Route
+							path="/admin/deliverydashboard"
+							element={<DeliveryDashboard />}
+						/>
+						<Route
+							path="/admin/foodsafetydashboard"
+							element={<FoodSafetyDashboard />}
+						/>
+						<Route path="/admin/menudashboard" element={<MenuDashboard />} />
+						<Route path="/admin/userdashboard" element={<UserDashboard />} />
+					</Route>
+
 					<Route path="/404-not-found" element={<PageNotFound />} />
 					<Route path="*" element={<Navigate to="/404-not-found" />} />
 				</Routes>

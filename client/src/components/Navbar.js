@@ -13,7 +13,11 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "../images/merrymeallogo.png";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { Badge } from "@mui/material";
+import { logoutAction } from "../redux/action/userAction";
 
 // const pages = ["Home", "About", "Blog"];
 // const settings = ["Register", "Login"];
@@ -43,15 +47,28 @@ const ResponsiveAppBar = () => {
 		setAnchorElUser(null);
 	};
 
+	const dispatch = useDispatch();
+
 	const classes = useStyles();
 
 	const userState = useSelector((state) => state.loginReducer);
+	const cartState = useSelector((state) => state.cartReducer);
 	const { currentUser } = userState;
 
 	return (
 		<AppBar className={classes.AppBar} position="static">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
+					<Box
+						component="img"
+						sx={{
+							height: 50,
+							mr: 2,
+							display: { xs: "none", md: "flex" },
+						}}
+						alt="Merry Meal Logo"
+						src={logo}
+					/>
 					<Typography
 						variant="h6"
 						noWrap
@@ -136,22 +153,33 @@ const ResponsiveAppBar = () => {
 						</Button>
 						<Button
 							component={Link}
-							to="/meals"
+							to="/restaurants"
 							onClick={handleCloseNavMenu}
 							sx={{ my: 2, color: "white", display: "block" }}
 						>
-							Meals
+							Restaurants
 						</Button>
 					</Box>
-
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+								{currentUser && currentUser.user ? (
+									<Avatar
+										alt={currentUser.user.firstName}
+										src="/static/images/avatar/2.jpg"
+									/>
+								) : currentUser && currentUser.partner ? (
+									<Avatar
+										alt={currentUser.partner.partnerName}
+										src="/static/images/avatar/2.jpg"
+									/>
+								) : (
+									<Avatar alt="User" src="/static/images/avatar/2.jpg" />
+								)}
 							</IconButton>
 						</Tooltip>
 
-						{currentUser ? (
+						{currentUser && currentUser.user ? (
 							<Menu
 								sx={{ mt: "45px" }}
 								id="menu-appbar"
@@ -179,8 +207,56 @@ const ResponsiveAppBar = () => {
 								</MenuItem>
 								<MenuItem
 									component={Link}
-									to="/login"
+									to="/orders"
 									onClick={handleCloseUserMenu}
+								>
+									<Typography textAlign="center">Orders</Typography>
+								</MenuItem>
+								<MenuItem
+									component={Link}
+									to=""
+									onClick={(handleCloseUserMenu, () => dispatch(logoutAction))}
+								>
+									<Typography textAlign="center">Logout</Typography>
+								</MenuItem>{" "}
+							</Menu>
+						) : currentUser && currentUser.partner ? (
+							<Menu
+								sx={{ mt: "45px" }}
+								id="menu-appbar"
+								anchorEl={anchorElUser}
+								anchorOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								keepMounted
+								transformOrigin={{
+									vertical: "top",
+									horizontal: "right",
+								}}
+								open={Boolean(anchorElUser)}
+								onClose={handleCloseUserMenu}
+							>
+								<MenuItem
+									component={Link}
+									to="/register/member"
+									onClick={handleCloseUserMenu}
+								>
+									<Typography textAlign="center">
+										{currentUser.partner.partnerName}
+									</Typography>
+								</MenuItem>
+								<MenuItem
+									component={Link}
+									to={`/dashboard/partner/meals/${currentUser.partner._id}`}
+									onClick={handleCloseUserMenu}
+								>
+									<Typography textAlign="center">Dashboard</Typography>
+								</MenuItem>
+								<MenuItem
+									component={Link}
+									to="/logout"
+									onClick={(handleCloseUserMenu, () => dispatch(logoutAction))}
 								>
 									<Typography textAlign="center">Logout</Typography>
 								</MenuItem>{" "}
@@ -219,6 +295,15 @@ const ResponsiveAppBar = () => {
 							</Menu>
 						)}
 					</Box>
+					<Link to="/cart">
+						<Box sx={{ mx: 2 }}>
+							<IconButton size="large" sx={{ color: "#1D3557" }}>
+								<Badge badgeContent={cartState.cartItems.length} color="error">
+									<ShoppingCartRoundedIcon />
+								</Badge>
+							</IconButton>
+						</Box>
+					</Link>
 				</Toolbar>
 			</Container>
 		</AppBar>
