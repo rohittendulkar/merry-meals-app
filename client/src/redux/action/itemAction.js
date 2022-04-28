@@ -60,6 +60,7 @@ export const deleteItemById = (id) => async (dispatch) => {
 	try {
 		await axios.delete(`http://localhost:5000/api/items/${id}`);
 		dispatch({ type: "DELETE_ITEM_SUCCESS" });
+		window.location.reload();
 	} catch (error) {
 		dispatch({ type: "DELETE_ITEM_FAIL", payload: error });
 	}
