@@ -85,10 +85,10 @@ export default function Register() {
 		<div style={{ display: "block" }}>
 			<Grid container className={classes.form}>
 				<Grid item xs={3} />
-				<Grid item xs={7}>
+				<Grid item xs={6}>
 					<Paper sx={{ pr: 2 }}>
 						<Typography variant="h3" className={classes.title}>
-							Register{" "}
+							Member Register{" "}
 							<span role="img" aria-label="Pizza Emoji">
 								🍕
 							</span>

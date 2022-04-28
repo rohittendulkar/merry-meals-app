@@ -41,7 +41,7 @@ const PartnerMeals = () => {
 
 	const deleteItem = (id) => {
 		dispatch(deleteItemById(id));
-		items.filter((item) => item._id !== id);
+		window.location.reload();
 	};
 
 	return (
@@ -84,7 +84,7 @@ const PartnerMeals = () => {
 										<Box sx={{ mx: 2 }}>
 											<IconButton
 												size="large"
-												onClick={() => deleteItem(item._id)}
+												onClick={() => deleteItem(item._id, partnerId)}
 												color="error"
 											>
 												<Delete />

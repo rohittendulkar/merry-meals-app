@@ -20,13 +20,22 @@ const PartnerDashboard = () => {
 
 	return (
 		<>
-			<Typography textAlign="center" variant="h3">
+			<Typography
+				textAlign="center"
+				sx={{ textAlign: "left", m: 2 }}
+				variant="h4"
+			>
 				Partner Dashboard
 			</Typography>
 			<Grid container>
 				<Grid item xs={12} md={4} justifySelf="flex-start">
 					<Box
-						sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+						sx={{
+							width: "100%",
+							maxWidth: 360,
+							bgcolor: "background.paper",
+							m: 2,
+						}}
 					>
 						<nav aria-label="main mailbox folders">
 							<List>
@@ -68,7 +77,7 @@ const PartnerDashboard = () => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} md={6} justifySelf="center">
-					<Box>
+					<Box sx={{ mt: 4 }}>
 						<Outlet />
 					</Box>
 				</Grid>

@@ -48,8 +48,8 @@ export default function Login() {
 
 	return (
 		<Grid container className={classes.form}>
-			<Grid item sm />
-			<Grid item sm>
+			<Grid item xs={3} />
+			<Grid item xs={6}>
 				<Paper sx={{ pr: 2 }}>
 					<Typography variant="h3" className={classes.title}>
 						Log in
@@ -73,6 +73,7 @@ export default function Login() {
 								id="password"
 								name="password"
 								label="Password"
+								type="password"
 								onChange={(e) => setPassword(e.target.value)}
 								value={password}
 								className={classes.textField}
