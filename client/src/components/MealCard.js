@@ -49,7 +49,7 @@ const MealCard = ({ item }) => {
 		dispatch(addToCart(item, quantity));
 	};
 
-	const userState = useSelector((user) => user.loginReducer);
+	const userState = useSelector((state) => state.loginReducer);
 	const { currentUser } = userState;
 	const [snackState, setsnackState] = useState({
 		openSnack: true,
@@ -92,7 +92,7 @@ const MealCard = ({ item }) => {
 						<Grid item>
 							<Chip label={item.category} />
 						</Grid>
-						{currentUser.user && (
+						{currentUser && currentUser.user && (
 							<Grid item>
 								<FormControl sx={{ m: 1, minWidth: 80 }} size="small">
 									<InputLabel id="demo-simple-select-autowidth-label">

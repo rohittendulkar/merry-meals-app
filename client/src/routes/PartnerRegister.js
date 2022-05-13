@@ -90,10 +90,10 @@ export default function PartnerRegister() {
 		<div style={{ display: "block" }}>
 			<Grid container className={classes.form}>
 				<Grid item xs={3} />
-				<Grid item xs={7}>
+				<Grid item xs={6}>
 					<Paper sx={{ pr: 2 }}>
 						<Typography variant="h3" className={classes.title}>
-							Register{" "}
+							Partner Register{" "}
 						</Typography>
 						<br />
 						<form encType="multipart/form-data" noValidate>
@@ -107,7 +107,7 @@ export default function PartnerRegister() {
 								<TextField
 									id="partnerName"
 									name="partnerName"
-									label="First Name"
+									label="Partner Name"
 									onChange={(e) => setPartnerName(e.target.value)}
 									value={partnerName}
 									className={classes.textField}
@@ -144,6 +144,7 @@ export default function PartnerRegister() {
 									id="password"
 									name="password"
 									label="Password"
+									type="password"
 									onChange={(e) => setPassword(e.target.value)}
 									value={password}
 									className={classes.textField}
