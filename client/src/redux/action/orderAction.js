@@ -77,3 +77,24 @@ export const deliverOrder = (orderid, id) => async (dispatch, getState) => {
 		dispatch({ type: "GET_ALL_ORDER_FAIL", payload: error });
 	}
 };
+
+export const deleteOrderById = (id) => async (dispatch) => {
+	dispatch({ type: "DELETE_ORDER_REQUEST" });
+	try {
+		await axios.delete(`http://localhost:5000/api/orders/${id}`);
+		dispatch({ type: "DELETE_ORDER_SUCCESS" });
+	} catch (error) {
+		dispatch({ type: "DELETE_ORDER_FAIL", payload: error });
+	}
+};
+
+export const getAllOrders = () => async (dispatch) => {
+	dispatch({ type: "ORDERS_REQ" });
+	try {
+		const res = await axios.get("http://localhost:5000/api/orders");
+		console.log(res);
+		dispatch({ type: "ORDERS_SUCCESS", payload: res.data });
+	} catch (error) {
+		dispatch({ type: "ORDERS_FAIL", payload: error });
+	}
+};

@@ -15,10 +15,9 @@ import PartnerAddMeals from "./routes/PartnerAddMeals";
 import PartnerMeals from "./routes/PartnerMeals";
 import PartnerOrders from "./routes/PartnerOrders";
 import AdminScreen from "./routes/AdminScreen";
-import DeliveryDashboard from "./components/Admin/DeliveryDashboard";
-import FoodSafetyDashboard from "./components/Admin/FoodSafetyDashboard";
-import MenuDashboard from "./components/Admin/MenuDashboard";
 import UserDashboard from "./components/Admin/UserDashboard";
+import Partnerdashboard from "./components/Admin/PartnerDashboard";
+import OrderDashboard from "./components/Admin/OrderDashboard";
 
 const theme = createTheme({
 	palette: {
@@ -82,14 +81,11 @@ function App() {
 					<Route path="/restaurants/meals/:id" element={<Meal />} />
 					<Route path="/admin" element={<AdminScreen />}>
 						<Route
-							path="/admin/deliverydashboard"
-							element={<DeliveryDashboard />}
+							path="/admin/orderdashboard"
+							element={<OrderDashboard />}
 						/>
-						<Route
-							path="/admin/foodsafetydashboard"
-							element={<FoodSafetyDashboard />}
-						/>
-						<Route path="/admin/menudashboard" element={<MenuDashboard />} />
+						
+						<Route path="/admin/partnerdashboard" element={<Partnerdashboard />} />
 						<Route path="/admin/userdashboard" element={<UserDashboard />} />
 					</Route>
 

@@ -46,4 +46,13 @@ router.get("/", async (req, res) => {
 	res.send(partner);
 });
 
+router.delete("/:id", async (req, res) => {
+	let partner = await Partner.findByIdAndDelete(req.params.id);
+
+	if (!partner)
+		res.status(404).json({ message: "Partner with given ID not found" });
+	res
+		.status(200)
+		.json({ success: true, message: "Partner was deleted successfully" });
+});
 module.exports = router;

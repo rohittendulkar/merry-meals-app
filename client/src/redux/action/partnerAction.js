@@ -31,3 +31,13 @@ export const searchByStreet = (query) => (dispatch, getState) => {
 	);
 	dispatch({ type: "SEARCH_PARTNERS", payload: searchResults });
 };
+
+export const deletePartnerById = (id) => async (dispatch) => {
+	dispatch({ type: "DELETE_PARTNER_REQUEST" });
+	try {
+		await axios.delete(`http://localhost:5000/api/partners/${id}`);
+		dispatch({ type: "DELETE_PARTNER_SUCCESS" });
+	} catch (error) {
+		dispatch({ type: "DELETE_PARTNER_FAIL", payload: error });
+	}
+};

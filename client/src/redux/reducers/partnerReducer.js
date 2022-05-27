@@ -58,3 +58,24 @@ export const getAllPartnersReducer = (
 			return state;
 	}
 };
+
+export const deletePartnerByIdReducer = (state = {}, action) => {
+	switch (action.type) {
+		case "DELETE_PARTNER_REQUEST":
+			return {
+				loading: true,
+			};
+		case "DELETE_PARTNER_SUCCESS":
+			return {
+				loading: false,
+				success: true,
+			};
+		case "DELETE_PARTNER_FAIL":
+			return {
+				error: action.payload,
+				loading: false,
+			};
+		default:
+			return state;
+	}
+};

@@ -11,23 +11,19 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUserById, getAllUsers } from "../../redux/action/userAction";
+import { deleteOrderById, getAllOrders } from "../../redux/action/orderAction";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const UserDashboard = () => {
-	const { loading, users } = useSelector(
-		(state) => state.getAllUsersReducer
-	);
+const OrderDashboard = () => {
+	const { loading, orders } = useSelector((state) => state.getAllOrdersReducer);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getAllUsers());
+		dispatch(getAllOrders());
 	}, [dispatch]);
 
-
-
-	const deleteUser = (id) => {
-		dispatch(deleteUserById(id));
+	const deleteOrder = (id) => {
+		dispatch(deleteOrderById(id));
 		window.location.reload();
 	};
 
@@ -39,9 +35,9 @@ const UserDashboard = () => {
 						<TableRow>
 							<TableCell align="center">Name</TableCell>
 							<TableCell align="center">Email ID</TableCell>
-							<TableCell align="center">Gender</TableCell>
-							<TableCell align="center">Phone.no</TableCell>
-							<TableCell align="center">Delete User</TableCell>
+							<TableCell align="center">Order Items</TableCell>
+							<TableCell align="center">Order Status</TableCell>
+							<TableCell align="center">Delete Order</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -71,23 +67,28 @@ const UserDashboard = () => {
 							</TableRow>
 						)}
 
-						{users &&
-							users.map((user) => (
+						{orders &&
+							orders.map((order) => (
 								<TableRow
-									key={user._id}
+									key={order._id}
 									sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 								>
 									<TableCell align="center">
-										{user.firstName} {user.lastName}
+										{order.firstname} {order.lastname}
 									</TableCell>
-									<TableCell align="center">{user.email}</TableCell>
-									<TableCell align="center">{user.gender}</TableCell>
-									<TableCell align="center">{user.phone}</TableCell>
+									<TableCell align="center">{order.email}</TableCell>
+									
+									<TableCell align="center">
+										{order.orderItems.map((items) => items.title).join(", ")}
+										
+									</TableCell>
+									
+									<TableCell align="center">{order.isDelivered === true? "Delivered":"Not Delivered"}</TableCell>
 									<TableCell align="center">
 										<Button
 											variant="outlined"
 											startIcon={<DeleteIcon />}
-											onClick={() => deleteUser(user._id)}
+											onClick={() => deleteOrder(order._id)}
 											color="error"
 										>
 											Delete
@@ -102,4 +103,4 @@ const UserDashboard = () => {
 	);
 };
 
-export default UserDashboard;
+export default OrderDashboard;
