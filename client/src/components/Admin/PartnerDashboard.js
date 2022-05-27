@@ -11,23 +11,24 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUserById, getAllUsers } from "../../redux/action/userAction";
+import {
+	deletePartnerById,
+	getAllPartners,
+} from "../../redux/action/partnerAction";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const UserDashboard = () => {
-	const { loading, users } = useSelector(
-		(state) => state.getAllUsersReducer
+const PartnerDashboard = () => {
+	const { loading, partners } = useSelector(
+		(state) => state.getAllPartnersReducer
 	);
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getAllUsers());
+		dispatch(getAllPartners());
 	}, [dispatch]);
 
-
-
-	const deleteUser = (id) => {
-		dispatch(deleteUserById(id));
+	const deletePartner = (id) => {
+		dispatch(deletePartnerById(id));
 		window.location.reload();
 	};
 
@@ -39,9 +40,9 @@ const UserDashboard = () => {
 						<TableRow>
 							<TableCell align="center">Name</TableCell>
 							<TableCell align="center">Email ID</TableCell>
-							<TableCell align="center">Gender</TableCell>
+							<TableCell align="center">Location</TableCell>
 							<TableCell align="center">Phone.no</TableCell>
-							<TableCell align="center">Delete User</TableCell>
+							<TableCell align="center">Delete Partner</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -71,23 +72,21 @@ const UserDashboard = () => {
 							</TableRow>
 						)}
 
-						{users &&
-							users.map((user) => (
+						{partners &&
+							partners.map((partner) => (
 								<TableRow
-									key={user._id}
+									key={partner._id}
 									sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 								>
-									<TableCell align="center">
-										{user.firstName} {user.lastName}
-									</TableCell>
-									<TableCell align="center">{user.email}</TableCell>
-									<TableCell align="center">{user.gender}</TableCell>
-									<TableCell align="center">{user.phone}</TableCell>
+									<TableCell align="center">{partner.partnerName}</TableCell>
+									<TableCell align="center">{partner.email}</TableCell>
+									<TableCell align="center">{partner.locality}</TableCell>
+									<TableCell align="center">{partner.phone}</TableCell>
 									<TableCell align="center">
 										<Button
 											variant="outlined"
 											startIcon={<DeleteIcon />}
-											onClick={() => deleteUser(user._id)}
+											onClick={() => deletePartner(partner._id)}
 											color="error"
 										>
 											Delete
@@ -102,4 +101,4 @@ const UserDashboard = () => {
 	);
 };
 
-export default UserDashboard;
+export default PartnerDashboard;

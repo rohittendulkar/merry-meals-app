@@ -79,4 +79,20 @@ router.post("/deliverorder", async (req, res) => {
 		});
 	}
 });
+
+router.delete("/:id", async (req, res) => {
+	let order = await Orders.findByIdAndDelete(req.params.id);
+
+	if (!order)
+		res.status(404).json({ message: "Order with given ID not found" });
+	res
+		.status(200)
+		.json({ success: true, message: "Order was deleted successfully" });
+});
+
+router.get("/", async (req, res) => {
+	let order = await Orders.find().select("-__v");
+	res.send(order);
+});
+
 module.exports = router;

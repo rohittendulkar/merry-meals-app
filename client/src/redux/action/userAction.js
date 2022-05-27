@@ -29,3 +29,24 @@ export const logoutAction = () => {
 	localStorage.removeItem("currentUser");
 	window.location.href = "/login";
 };
+
+export const getAllUsers = () => async (dispatch) => {
+	dispatch({ type: "USERS_REQ" });
+	try {
+		const res = await axios.get("http://localhost:5000/api/register/users");
+		console.log(res);
+		dispatch({ type: "USERS_SUCCESS", payload: res.data });
+	} catch (error) {
+		dispatch({ type: "USERS_FAIL", payload: error });
+	}
+};
+
+export const deleteUserById = (id) => async (dispatch) => {
+	dispatch({ type: "DELETE_USER_REQUEST" });
+	try {
+		await axios.delete(`http://localhost:5000/api/register/${id}`);
+		dispatch({ type: "DELETE_USER_SUCCESS" });
+	} catch (error) {
+		dispatch({ type: "DELETE_USER_FAIL", payload: error });
+	}
+};

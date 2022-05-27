@@ -67,3 +67,55 @@ export const getOrderByPartnerReducer = (
 			return state;
 	}
 };
+
+export const deleteOrderByIdReducer = (state = {}, action) => {
+	switch (action.type) {
+		case "DELETE_ORDER_REQUEST":
+			return {
+				loading: true,
+			};
+		case "DELETE_ORDER_SUCCESS":
+			return {
+				loading: false,
+				success: true,
+			};
+		case "DELETE_ORDER_FAIL":
+			return {
+				error: action.payload,
+				loading: false,
+			};
+		default:
+			return state;
+	}
+};
+
+export const getAllOrdersReducer = (
+	state = { orders: [], error: [] },
+	action
+) => {
+	switch (action.type) {
+		case "ORDERS_REQUEST":
+			return {
+				...state,
+				loading: true,
+			};
+
+		case "ORDERS_SUCCESS":
+			return {
+				...state,
+				loading: false,
+				success: true,
+				orders: action.payload,
+			};
+
+		case "ORDERS_FAIL":
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
+
+		default:
+			return state;
+	}
+};

@@ -1,6 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
-import { registerReducer, loginReducer } from "./reducers/userReducer";
+import {
+	registerReducer,
+	loginReducer,
+	getAllUsersReducer,
+} from "./reducers/userReducer";
 import {
 	getitemReducer,
 	postitemReducer,
@@ -9,13 +13,16 @@ import {
 } from "./reducers/itemReducer";
 import {
 	partnerReducer,
+	deletePartnerByIdReducer,
 	getAllPartnersReducer,
 } from "./reducers/partnerReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
 	placeOrderReducer,
 	getUserOrderReducer,
+	deleteOrderByIdReducer,
 	getOrderByPartnerReducer,
+	getAllOrdersReducer,
 } from "./reducers/orderReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import jwtDecode from "jwt-decode";
@@ -41,6 +48,10 @@ const rootReducer = combineReducers({
 	getOrderByPartnerReducer,
 	getitemByIdReducer,
 	deleteItemByIdReducer,
+	getAllUsersReducer,
+	deletePartnerByIdReducer,
+	deleteOrderByIdReducer,
+	getAllOrdersReducer,
 });
 
 const initialState = {

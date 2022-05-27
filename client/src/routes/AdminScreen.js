@@ -1,80 +1,81 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import { Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
+import React, { useEffect } from "react";
+import { Restaurant, DeliveryDining, Person } from "@mui/icons-material";
 import { Link, Outlet } from "react-router-dom";
+import {
+	Box,
+	Grid,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Typography,
+} from "@mui/material";
+import { useSelector } from "react-redux";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(0),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+const AdminScreen = () => {
+	const userState = useSelector((state) => state.loginReducer);
+	const { currentUser } = userState;
+	useEffect(() => {
+		if (
+			localStorage.getItem("currentUser") === null ||
+			!currentUser.user.isAdmin
+		) {
+			window.location.href = "/";
+		}
+	}, [currentUser]);
 
-const AdminScreen = (history) => {
-  return (
-    <div>
-      <h1 align="center"> Admin Panel</h1>
-      <Box
-        sx={{
-          display: "flex",
-          "& > *": {
-            m: 1,
-          },
-        }}
-      >
-        <Grid item xs={3}>
-          <Item>
-            <ButtonGroup
-              orientation="vertical"
-              aria-label="vertical contained button group"
-              variant="contained"
-            >
-              <Button
-                component={Link}
-                to="/admin/deliverydashboard"
-                sx={{ height: 70, width: 300 }}
-              >
-                Delivery Dashboard
-              </Button>
-              <Button
-                component={Link}
-                to="/admin/foodsafetydashboard"
-                sx={{ height: 70 }}
-              >
-                Food Safety Dashboard
-              </Button>
-              <Button
-                component={Link}
-                to="/admin/menudashboard"
-                sx={{ height: 70 }}
-              >
-                Menu Dashboard
-              </Button>
-              <Button
-                component={Link}
-                to="/admin/userdashboard"
-                sx={{ height: 70 }}
-              >
-                User Dashboard
-              </Button>
-            </ButtonGroup>
-          </Item>
-        </Grid>
-
-        <Grid item xs={8}>
-          <Item>
-            <Outlet />
-          </Item>
-        </Grid>
-        <Grid></Grid>
-      </Box>
-    </div>
-  );
+	return (
+		<div>
+			<Typography textAlign="center" variant="h3">
+				Admin Panel
+			</Typography>
+			<Grid container>
+				<Grid item xs={12} md={3} justifySelf="flex-start">
+					<Box
+						sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+					>
+						<nav aria-label="main mailbox folders">
+							<List>
+								<ListItem disablePadding>
+									<ListItemButton component={Link} to={`/admin/userdashboard`}>
+										<ListItemIcon>
+											<Person />
+										</ListItemIcon>
+										<ListItemText primary="User Dashboard" />
+									</ListItemButton>
+								</ListItem>
+								<ListItem disablePadding>
+									<ListItemButton
+										component={Link}
+										to={`/admin/partnerdashboard`}
+									>
+										<ListItemIcon>
+											<Restaurant />
+										</ListItemIcon>
+										<ListItemText primary="Partner Dashboard" />
+									</ListItemButton>
+								</ListItem>
+								<ListItem disablePadding>
+									<ListItemButton component={Link} to={`/admin/orderdashboard`}>
+										<ListItemIcon>
+											<DeliveryDining />
+										</ListItemIcon>
+										<ListItemText primary="Order Dashboard" />
+									</ListItemButton>
+								</ListItem>
+							</List>
+						</nav>
+					</Box>
+				</Grid>
+				<Grid item xs={12} md={5} justifySelf="center">
+					<Box>
+						<Outlet />
+					</Box>
+				</Grid>
+			</Grid>
+		</div>
+	);
 };
 
 export default AdminScreen;
